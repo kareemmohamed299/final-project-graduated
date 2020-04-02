@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">project1</string>
+    <string name="logosplash">AOS</string>
+    <string name="logo">TODO</string>
+    <string name="select">select</string>
+    <string name="select_your_gender">select your gender</string>
+    <string name="logo_page1">Logo</string>
+    <string name="professor">professor</string>
+    <string name="student">student</string>
+    <string name="studentpic">TODO</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="facestudent">TODO</string>
+    <string name="faceprofessor">TODO</string>
+    <string name="name_in_welcome">Mohamed Ashraf</string>
+    <string name="program_in_welcome">Computer Science</string>
+    <string name="welcome">WELCOME</string>
+    <string name="ain_shams">Ain Shams University</string>
+    <string name="faculty_of_science">Faculty of science</string>
+    <string name="get_started">Get Started</string>
+    <string name="application">Application</string>
+    <string name="mypic_in_welcome">TODO</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_third">third</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_courses">Courses</string>
+    <string name="title_about">About</string>
+    <string name="myprofile">My Profile</string>
+    <string name="level">Level</string>
+    <string name="gpa">GPA</string>
+    <string name="num_gpa">2.203</string>
+    <string name="num_level">4</string>
+    <string name="full">Full Name</string>
+    <string name="name">mohamed ashraf mohamed</string>
+    <string name="phone">Phone</string>
+    <string name="phonenum">01125316805</string>
+    <string name="department">Department</string>
+    <string name="math">Mathmatics</string>
+    <string name="academic">Academic ID</string>
+    <string name="id">42315675</string>
+    <string name="prog">Program</string>
+    <string name="video">Video Not Found</string>
+    <string name="cou">Courses Not Found</string>
+    <string name="invalid_email">please enter the email</string>
+    <string name="invalid_password">please enter the password</string>
+
+
+</resources>

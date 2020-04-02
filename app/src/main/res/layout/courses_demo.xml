@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".courses_demo"
+    android:background="#FcFcFc"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/courses_demo"
+    >
+
+
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                tools:context=".courses_demo" >
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:background="@color/light_blue"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/collapsingtoolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_scrollFlags="exitUntilCollapsed|scroll"
+                    app:contentScrim="?attr/colorPrimary"
+                    app:title="My Courses"
+                    app:expandedTitleMarginStart="30dp"
+                    app:expandedTitleMarginEnd="64dp"
+                    android:background="@drawable/coursesbackk">
+
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbarid"
+                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                        app:layout_collapseMode="pin"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"/>
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="15dp"
+
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</RelativeLayout>
