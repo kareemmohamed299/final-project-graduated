@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class profile extends Fragment {
-    private TextView name1 ,id1 ,prog_name ,prog_name1 , level , gpa , phone1 ,department1;
+    private TextView name1 ,id1 ,prog_name ,prog_name1 , level , gpa , phone1 ,department1 ,name2;
     ArrayList<String> studentData;
     public profile() {
     }
@@ -40,8 +40,10 @@ public class profile extends Fragment {
         gpa = (TextView)v.findViewById(R.id.gpa);
         department1 = (TextView)v.findViewById(R.id.department1);
         phone1 = (TextView)v.findViewById(R.id.phone1);
+        name2 = (TextView)v.findViewById(R.id.name1);
         //name1.setText(fname);
-        name1.setText( studentData.get(0));
+        name2.setText(studentData.get(0)+" "+studentData.get(1)+ " "+studentData.get(2));
+        name1.setText( studentData.get(0)+" "+studentData.get(1));
         phone1.setText(studentData.get(6));
         level.setText(studentData.get(7));
         gpa.setText(studentData.get(8));
