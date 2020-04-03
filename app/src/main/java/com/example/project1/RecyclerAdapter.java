@@ -36,7 +36,7 @@ public class RecyclerAdapter  extends RecyclerView.Adapter<RecyclerAdapter.ViewH
     private ArrayList<cource> course1 = new ArrayList<>();
     private Context mContext;
     private ArrayList<String>c;
-public RecyclerAdapter(ArrayList<cource> course, Context  context)
+RecyclerAdapter(ArrayList<cource> course, Context context)
 {
     this.course1 = course;
     mContext = context;
@@ -53,12 +53,9 @@ public RecyclerAdapter(ArrayList<cource> course, Context  context)
             R.drawable.circle5
            };
     class ViewHolder extends RecyclerView.ViewHolder{
-        public int currentItem;
-        public ImageView itemImage;
-        public TextView itemTitle;
-        public TextView course_code;
-        public TextView course_name;
-        public CardView card_view;
+        private ImageView itemImage;
+        private TextView course_code, course_name,itemTitle;
+        private CardView card_view;
         public ViewHolder(View itemView) {
             super(itemView);
             itemImage = (ImageView)itemView.findViewById(R.id.item_image);
