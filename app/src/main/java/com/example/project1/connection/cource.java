@@ -6,6 +6,78 @@ import android.os.Parcelable;
 public class cource implements Parcelable {
         private  String code;
         private  String name;
+        private String duration;
+        private String ex_start;
+        private String ex_end;
+        private String degree;
+        private String exam_name;
+        private String fname;
+        private String mname;
+        private String lname;
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public void setEx_start(String ex_start) {
+        this.ex_start = ex_start;
+    }
+
+    public void setEx_end(String ex_end) {
+        this.ex_end = ex_end;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
+    public void setExam_name(String exam_name) {
+        this.exam_name = exam_name;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public void setMname(String mname) {
+        this.mname = mname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public String getEx_start() {
+        return ex_start;
+    }
+
+    public String getEx_end() {
+        return ex_end;
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public String getExam_name() {
+        return exam_name;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public String getMname() {
+        return mname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
 
     protected cource(Parcel in) {
         code = in.readString();
@@ -48,28 +120,12 @@ public class cource implements Parcelable {
     public cource() {
     }
 
-    /**
-     * Describe the kinds of special objects contained in this Parcelable
-     * instance's marshaled representation. For example, if the object will
-     * include a file descriptor in the output of {@link #writeToParcel(Parcel, int)},
-     * the return value of this method must include the
-     * {@link #CONTENTS_FILE_DESCRIPTOR} bit.
-     *
-     * @return a bitmask indicating the set of special object types marshaled
-     * by this Parcelable object instance.
-     */
     @Override
     public int describeContents() {
         return 0;
     }
 
-    /**
-     * Flatten this object in to a Parcel.
-     *
-     * @param dest  The Parcel in which the object should be written.
-     * @param flags Additional flags about how the object should be written.
-     *              May be 0 or {@link #PARCELABLE_WRITE_RETURN_VALUE}.
-     */
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(code);

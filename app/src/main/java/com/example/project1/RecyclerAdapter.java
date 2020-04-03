@@ -10,19 +10,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.project1.connection.Api;
 import com.example.project1.connection.cource;
+import com.example.project1.connection.student;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
 public class RecyclerAdapter  extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     private ArrayList<cource> course1 = new ArrayList<>();
     private Context mContext;
-    private int item;
+    private ArrayList<String>c;
 public RecyclerAdapter(ArrayList<cource> course, Context  context)
 {
     this.course1 = course;
@@ -53,12 +65,6 @@ public RecyclerAdapter(ArrayList<cource> course, Context  context)
             course_code = (TextView)itemView.findViewById(R.id.course_code);
             course_name = (TextView)itemView.findViewById(R.id.course_name);
             card_view = (CardView) itemView.findViewById(R.id.card_view);
-           /* itemView.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                    Intent myIntent = new Intent(courses_demo.this.getActivity(), course_info.class);
-                    startActivity(myIntent);
-                }
-            });*/
         }
     }
 
@@ -70,7 +76,7 @@ public RecyclerAdapter(ArrayList<cource> course, Context  context)
         return viewHolder;
     }
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(final ViewHolder viewHolder, int i) {
         cource cource1 = course1.get(i);
         viewHolder.itemTitle.setText("comp");
         viewHolder.course_code.setText(cource1.getCode());
@@ -79,9 +85,42 @@ public RecyclerAdapter(ArrayList<cource> course, Context  context)
 
         viewHolder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, course_info.class);
-                mContext.startActivity(intent);
+            public void onClick(final View view) {
+                Retrofit r = new Retrofit.Builder()
+                        .baseUrl("http://kmmmm.000webhostapp.com/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                Api a = r.create(Api.class);
+                Call<cource> call=a.courcedata( viewHolder.course_code.getText().toString());
+                call.enqueue(new Callback<cource>() {
+                    @Override
+                    public void onResponse(Call<cource> call, Response<cource> response) {
+                        if(response.isSuccessful())
+                        {
+                           cource cource = response.body();
+                            c = new ArrayList<String>();
+                             assert cource != null;
+                            c.add(cource.getDuration());
+                            c.add(cource.getEx_start());
+                            c.add(cource.getEx_end());
+                            c.add(cource.getDegree());
+                            c.add(cource.getExam_name());
+                            c.add(cource.getFname());
+                            c.add(cource.getMname());
+                            c.add(cource.getLname());
+                            open();
+                        }
+                        else{
+                            Snackbar.make(view, "NO data" ,Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();}
+                        }
+                    @Override
+                    public void onFailure(Call<cource> call, Throwable t) {
+                        Snackbar.make(view, t.getMessage() ,Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                });
+
             }
         });
 
@@ -90,6 +129,12 @@ public RecyclerAdapter(ArrayList<cource> course, Context  context)
     @Override
     public int getItemCount() {
         return course1.size();
+    }
+    public void open()
+    {
+        Intent intent = new Intent(mContext, course_info.class);
+        intent.putStringArrayListExtra("c",c);
+         mContext.startActivity(intent);
     }
 
 }
