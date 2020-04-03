@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project1.connection.Api;
 import com.example.project1.connection.cource;
+import com.example.project1.connection.retrofit;
 import com.example.project1.connection.student;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -86,13 +87,8 @@ public RecyclerAdapter(ArrayList<cource> course, Context  context)
         viewHolder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                Retrofit r = new Retrofit.Builder()
-                        .baseUrl("http://kmmmm.000webhostapp.com/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                Api a = r.create(Api.class);
-                Call<cource> call=a.courcedata( viewHolder.course_code.getText().toString());
-                call.enqueue(new Callback<cource>() {
+                retrofit.getINSTANCE().getApi().courcedata(viewHolder.course_code.getText().toString())
+                        .enqueue(new Callback<cource>(){
                     @Override
                     public void onResponse(Call<cource> call, Response<cource> response) {
                         if(response.isSuccessful())
