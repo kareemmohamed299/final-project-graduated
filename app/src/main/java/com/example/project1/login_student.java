@@ -19,6 +19,7 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.example.project1.connection.Api;
 import com.example.project1.connection.cource;
+import com.example.project1.connection.retrofit;
 import com.example.project1.connection.student;
 import com.example.project1.welcome;
 
@@ -44,13 +45,7 @@ public class login_student extends AppCompatActivity {
         t2=tv2.getText().toString().trim();
         map.put("email",t1);
         map.put("password",t2);
-        Retrofit r = new Retrofit.Builder()
-                .baseUrl("http://kmmmm.000webhostapp.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Api a = r.create(Api.class);
-        Call<student> call=a.getdata(map);
-        call.enqueue(new Callback<student>() {
+        retrofit.getINSTANCE().getApi().getdata(map).enqueue(new Callback<student>() {
             @Override
             public void onResponse(Call<student> call, Response<student> response) {
                 if(response.isSuccessful())
@@ -75,10 +70,13 @@ public class login_student extends AppCompatActivity {
                 {
                     Toast.makeText(getApplicationContext(), "email or password is wrong", Toast.LENGTH_SHORT).show();
                 }
+
             }
+
             @Override
             public void onFailure(Call<student> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
     }

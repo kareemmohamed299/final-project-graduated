@@ -33,7 +33,6 @@ public class profile extends Fragment {
         studentData =new ArrayList<String>();
         assert this.getArguments() != null;
         studentData = b.getStringArrayList("student");
-       // fname = b.getString("fname");
         name1 = (TextView)v.findViewById(R.id.name2);
         id1 = (TextView)v.findViewById(R.id.id1);
         prog_name = (TextView)v.findViewById(R.id.prog_name2);
@@ -43,7 +42,6 @@ public class profile extends Fragment {
         department1 = (TextView)v.findViewById(R.id.department1);
         phone1 = (TextView)v.findViewById(R.id.phone1);
         name2 = (TextView)v.findViewById(R.id.name1);
-        //name1.setText(fname);
         name2.setText(studentData.get(0)+" "+studentData.get(1)+ " "+studentData.get(2));
         name1.setText( studentData.get(0)+" "+studentData.get(1));
         phone1.setText(studentData.get(6));

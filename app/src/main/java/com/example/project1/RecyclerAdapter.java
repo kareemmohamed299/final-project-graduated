@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project1.connection.Api;
 import com.example.project1.connection.cource;
+import com.example.project1.connection.retrofit;
 import com.example.project1.connection.student;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -35,7 +36,7 @@ public class RecyclerAdapter  extends RecyclerView.Adapter<RecyclerAdapter.ViewH
     private ArrayList<cource> course1 = new ArrayList<>();
     private Context mContext;
     private ArrayList<String>c;
-public RecyclerAdapter(ArrayList<cource> course, Context  context)
+RecyclerAdapter(ArrayList<cource> course, Context context)
 {
     this.course1 = course;
     mContext = context;
@@ -52,12 +53,9 @@ public RecyclerAdapter(ArrayList<cource> course, Context  context)
             R.drawable.circle5
            };
     class ViewHolder extends RecyclerView.ViewHolder{
-        public int currentItem;
-        public ImageView itemImage;
-        public TextView itemTitle;
-        public TextView course_code;
-        public TextView course_name;
-        public CardView card_view;
+        private ImageView itemImage;
+        private TextView course_code, course_name,itemTitle;
+        private CardView card_view;
         public ViewHolder(View itemView) {
             super(itemView);
             itemImage = (ImageView)itemView.findViewById(R.id.item_image);
@@ -86,13 +84,8 @@ public RecyclerAdapter(ArrayList<cource> course, Context  context)
         viewHolder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                Retrofit r = new Retrofit.Builder()
-                        .baseUrl("http://kmmmm.000webhostapp.com/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                Api a = r.create(Api.class);
-                Call<cource> call=a.courcedata( viewHolder.course_code.getText().toString());
-                call.enqueue(new Callback<cource>() {
+                retrofit.getINSTANCE().getApi().courcedata(viewHolder.course_code.getText().toString())
+                        .enqueue(new Callback<cource>(){
                     @Override
                     public void onResponse(Call<cource> call, Response<cource> response) {
                         if(response.isSuccessful())

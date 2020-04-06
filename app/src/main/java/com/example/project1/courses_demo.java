@@ -25,7 +25,6 @@ public class courses_demo extends Fragment {
     RecyclerView.Adapter adapter;
    ArrayList<cource>coursedata;
     public courses_demo() {
-        // Required empty public constructor
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
