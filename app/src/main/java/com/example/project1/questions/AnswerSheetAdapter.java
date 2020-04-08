@@ -12,7 +12,7 @@ import com.example.project1.R;
 
 public class AnswerSheetAdapter extends RecyclerView.Adapter<AnswerSheetAdapter.MyViewHolder> {
 
-    Context context ;
+
     private String[] typeAnswer = {"no answer","answered","no answer","answered","answered","answered"
     };
     private String[] questions ;
@@ -48,9 +48,7 @@ public class AnswerSheetAdapter extends RecyclerView.Adapter<AnswerSheetAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        if(typeAnswer[position]=="answered")
-            holder.question_item.setBackgroundResource(R.color.green);
-        else
+
             holder.question_item.setBackgroundResource(R.color.white);
     }
 

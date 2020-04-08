@@ -41,10 +41,17 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
 
     public  static ArrayList<mcq_question> fragmentList = new ArrayList<>();
     public  String[] questionList = {"question 1","question 2","question 3","question 4","question 5","question 6"
-    };
+            ,"question 7","question 8","question 9","question 10"};
 
     ViewPager viewPager;
     TabLayout tabLayout;
+
+
+    //for choices
+
+
+
+
 
 
     @Override
@@ -88,8 +95,22 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         mcqAdapter mcqAdapter  = new mcqAdapter(getSupportFragmentManager(),fragmentList);
 
 
+
+        //for choices
+
+
+
+
+
+
+
         viewPager.setAdapter(mcqAdapter);
         tabLayout.setupWithViewPager(viewPager);
+
+
+
+
+
 
     }
 

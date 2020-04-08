@@ -5,6 +5,8 @@ package com.example.project1.questions;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +20,11 @@ import com.example.project1.R;
 public class mcq_question extends Fragment {
 
     TextView question_txt ;
-    CheckBox ckbA,ckbB,ckbC,ckbD;
+
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    RecyclerView.Adapter adapter2;
+
 
 
     public mcq_question() {
@@ -34,12 +40,12 @@ public class mcq_question extends Fragment {
 
 
         question_txt = itemView.findViewById(R.id.question_txt);
-        ckbA = itemView.findViewById(R.id.ckbA);
-        ckbB = itemView.findViewById(R.id.ckbB);
-        ckbC = itemView.findViewById(R.id.ckbC);
-        ckbD = itemView.findViewById(R.id.ckbD);
 
-
+        recyclerView = (RecyclerView) itemView.findViewById(R.id.recycler_view);
+        layoutManager = new GridLayoutManager(mcq_question.this.getActivity(),1);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter2 = new choiceAdapter();
+        recyclerView.setAdapter(adapter2);
 
         return itemView;
     }}
