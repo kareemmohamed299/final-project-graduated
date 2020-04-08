@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.example.project1.R;
 import com.example.project1.result;
 
+import android.os.CountDownTimer;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -29,6 +30,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class question extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -36,8 +38,11 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
     RecyclerView answer_sheet_view;
     TextView txt_right_answer;
     TextView txt_timer;
+    public static final int Total_Time = 1*60*1000;
+    int time_play = Total_Time;
     RecyclerView.Adapter adapter;
     boolean isAnswerModeView = false;
+    public static CountDownTimer countDownTimer;
 
     public  static ArrayList<mcq_question> fragmentList = new ArrayList<>();
     public  String[] questionList = {"question 1","question 2","question 3","question 4","question 5","question 6"
@@ -50,9 +55,13 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
     //for choices
 
 
+    @Override
+    protected void onDestroy() {
+        if(countDownTimer !=null)
+            countDownTimer.cancel();
+        super.onDestroy();
 
-
-
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +88,7 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         txt_timer = (TextView)findViewById(R.id.txt_timer);
         txt_timer.setVisibility(View.VISIBLE);
         txt_right_answer.setVisibility(View.VISIBLE);
-
+        countTimer();
         navigationView.setNavigationItemSelectedListener(this);
         answer_sheet_view = (RecyclerView)findViewById(R.id.grid_answer);
         answer_sheet_view.setHasFixedSize(true);
@@ -111,6 +120,51 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
 
 
 
+
+    }
+
+
+
+    private void countTimer() {
+        if(countDownTimer == null) {
+            countDownTimer = new CountDownTimer(Total_Time, 1000) {
+                @Override
+                public void onTick(long l) {
+                    txt_timer.setText(String.format("%02d:%02d",
+                            TimeUnit.MILLISECONDS.toMinutes(l),
+                            TimeUnit.MILLISECONDS.toSeconds(l) -
+                                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l))));
+                    time_play -= 1000;
+                }
+
+                @Override
+                public void onFinish() {
+                    Intent myIntent = new Intent(question.this, result.class);
+                    startActivity(myIntent);
+                }
+            }.start();
+
+        }
+        else
+        {
+            countDownTimer.cancel();
+            countDownTimer = new CountDownTimer(Total_Time, 1000) {
+                @Override
+                public void onTick(long l) {
+                    txt_timer.setText(String.format("%02d:%02d",
+                            TimeUnit.MILLISECONDS.toMinutes(l),
+                            TimeUnit.MILLISECONDS.toSeconds(l) -
+                                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l))));
+                    time_play -= 1000;
+                }
+
+                @Override
+                public void onFinish() {
+                    Intent myIntent = new Intent(question.this, result.class);
+                    startActivity(myIntent);
+                }
+            }.start();
+        }
 
     }
 

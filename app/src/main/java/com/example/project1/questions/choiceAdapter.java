@@ -17,7 +17,6 @@ public class choiceAdapter extends RecyclerView.Adapter<choiceAdapter.ViewHolder
     private String[] choices = {"Answer A",
             "Answer B",
             "Answer C",
-            "Answer D",
 
     };
 
