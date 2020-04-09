@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.project1.R;
+import com.example.project1.connection.exam;
 import com.example.project1.result;
 
 import android.os.CountDownTimer;
@@ -12,6 +13,8 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import com.google.android.material.navigation.NavigationView;
@@ -45,18 +48,11 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
     RecyclerView.Adapter adapter;
     boolean isAnswerModeView = false;
     public static CountDownTimer countDownTimer;
-
+    ArrayList<exam> examdata ;
     public  static ArrayList<mcq_question> fragmentList = new ArrayList<>();
-    public  String[] questionList = {"question 1","question 2","question 3","question 4","question 5","question 6"
-            ,"question 7","question 8","question 9","question 10"};
-
     ViewPager viewPager;
     TabLayout tabLayout;
-
-
     //for choices
-
-
     @Override
     protected void onDestroy() {
         if(countDownTimer !=null)
@@ -71,9 +67,10 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         setContentView(R.layout.activity_question);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        examdata=new ArrayList<exam>();
+        examdata=getIntent().getParcelableArrayListExtra("exam");
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
        /* mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -87,6 +84,7 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
 
 
         txt_right_answer = (TextView)findViewById(R.id.txt_question_right);
+        txt_right_answer.setText("0 / "+examdata.size());
         txt_timer = (TextView)findViewById(R.id.txt_timer);
         txt_timer.setVisibility(View.VISIBLE);
         txt_right_answer.setVisibility(View.VISIBLE);
@@ -95,26 +93,13 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         answer_sheet_view = (RecyclerView)findViewById(R.id.grid_answer);
         answer_sheet_view.setHasFixedSize(true);
         answer_sheet_view.setLayoutManager(new GridLayoutManager(this,4));
-
-        adapter = new AnswerSheetAdapter(questionList);
+        adapter = new AnswerSheetAdapter(examdata);
         answer_sheet_view.setAdapter(adapter);
-
         viewPager = (ViewPager)findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-
         genFragmentList();
         mcqAdapter mcqAdapter  = new mcqAdapter(getSupportFragmentManager(),fragmentList);
-
-
-
         //for choices
-
-
-
-
-
-
-
         viewPager.setAdapter(mcqAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -159,7 +144,6 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
                                     TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l))));
                     time_play -= 1000;
                 }
-
                 @Override
                 public void onFinish() {
                     Intent myIntent = new Intent(question.this, result.class);
@@ -169,13 +153,18 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         }
 
     }
-
-
     private void genFragmentList(){
-        for(int i=0;i<questionList.length;i++)
+
+        if(fragmentList.isEmpty())
         {
-            mcq_question frag = new mcq_question();
-            fragmentList.add(frag);
+            for(int i=0;i<examdata.size();i++)
+            {
+                mcq_question frag = new mcq_question();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("ex",examdata.get(i));
+                frag.setArguments(bundle);
+                fragmentList.add(frag);
+            }
         }
     }
 

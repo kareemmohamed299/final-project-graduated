@@ -8,16 +8,24 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.project1.connection.exam;
+import com.example.project1.connection.retrofit;
 import com.example.project1.questions.question;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class course_info extends AppCompatActivity {
     ArrayList<String> c;
     private TextView course,professor,Duration,Exam_Start,Exam_End,Degree;
     private Button button ;
-
+    private ArrayList<exam> examdata=new ArrayList<exam>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +50,32 @@ public class course_info extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(course_info.this, question.class);
-                startActivity(myIntent);
+                retrofit.getINSTANCE().getApi().examdata(c.get(8)).enqueue(new Callback<List<exam>>() {
+                    @Override
+                    public void onResponse(Call<List<exam>> call, Response<List<exam>> response) {
+                        if(response.isSuccessful())
+                        {
+                            for(int i=0;i<response.body().size();i++)
+                            {
+                                examdata.add(i,response.body().get(i));
+                            }
+                            examdata1();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<exam>> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+
+                    }
+                });
             }
         });
+    }
+    public void examdata1()
+    {
+        Intent myIntent = new Intent(this, question.class);
+        myIntent.putParcelableArrayListExtra("exam",examdata);
+        startActivity(myIntent);
     }
 }

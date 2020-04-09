@@ -9,24 +9,20 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import java.util.List;
 
 public class mcqAdapter extends FragmentPagerAdapter {
-
     List<mcq_question> fragmentList;
     public mcqAdapter(@NonNull FragmentManager fm , List<mcq_question> fragmentList ) {
         super(fm);
         this.fragmentList=fragmentList;
     }
-
     @NonNull
     @Override
     public Fragment getItem(int position) {
         return fragmentList.get(position);
     }
-
     @Override
     public int getCount() {
         return fragmentList.size();
     }
-
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {

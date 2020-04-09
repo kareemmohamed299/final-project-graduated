@@ -30,7 +30,7 @@ public class courses_demo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.courses_demo, container, false);
-coursedata = new ArrayList<>();
+        coursedata = new ArrayList<>();
         assert this.getArguments() != null;
         coursedata = this.getArguments().getParcelableArrayList("course");
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);

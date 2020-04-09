@@ -14,39 +14,11 @@ public class cource implements Parcelable {
         private String fname;
         private String mname;
         private String lname;
+        private String idexam;
 
-    public void setDuration(String duration) {
-        this.duration = duration;
+    public String getIdexam() {
+        return idexam;
     }
-
-    public void setEx_start(String ex_start) {
-        this.ex_start = ex_start;
-    }
-
-    public void setEx_end(String ex_end) {
-        this.ex_end = ex_end;
-    }
-
-    public void setDegree(String degree) {
-        this.degree = degree;
-    }
-
-    public void setExam_name(String exam_name) {
-        this.exam_name = exam_name;
-    }
-
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
-
-    public void setMname(String mname) {
-        this.mname = mname;
-    }
-
-    public void setLname(String lname) {
-        this.lname = lname;
-    }
-
     public String getDuration() {
         return duration;
     }

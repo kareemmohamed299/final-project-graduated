@@ -8,22 +8,17 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project1.R;
+import com.example.project1.connection.exam;
 import com.google.android.material.snackbar.Snackbar;
 
 
 public class choiceAdapter extends RecyclerView.Adapter<choiceAdapter.ViewHolder> {
 
-
-    private String[] choices = {"Answer A",
-            "Answer B",
-            "Answer C",
-
-    };
-
-
-
-
-
+    exam examdata;
+     public choiceAdapter(exam e)
+     {
+         this.examdata=e;
+     }
     class ViewHolder extends RecyclerView.ViewHolder{
 
         public TextView choice;
@@ -59,14 +54,12 @@ public class choiceAdapter extends RecyclerView.Adapter<choiceAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.choice.setText(choices[i]);
-
-
+        viewHolder.choice.setText(examdata.getChoices().get(i));
     }
 
     @Override
     public int getItemCount() {
-        return choices.length;
+        return examdata.getChoices().size();
     }
 
 

@@ -101,6 +101,7 @@ RecyclerAdapter(ArrayList<cource> course, Context context)
                             c.add(cource.getFname());
                             c.add(cource.getMname());
                             c.add(cource.getLname());
+                            c.add(cource.getIdexam());
                             open();
                         }
                         else{
