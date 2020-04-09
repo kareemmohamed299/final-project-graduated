@@ -2,7 +2,9 @@ package com.example.project1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.widget.TextView;
@@ -26,51 +28,48 @@ public class course_info extends AppCompatActivity {
     private TextView course,professor,Duration,Exam_Start,Exam_End,Degree;
     private Button button ;
     private ArrayList<exam> examdata=new ArrayList<exam>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_info);
         c = getIntent().getStringArrayListExtra("c");
-        course=(TextView)findViewById(R.id.t1);
-        professor=(TextView)findViewById(R.id.t2);
-        Duration=(TextView)findViewById(R.id.t3);
-        Exam_Start=(TextView)findViewById(R.id.t4);
-        Exam_End=(TextView)findViewById(R.id.t5);
-        Degree=(TextView)findViewById(R.id.t6);
+        course = (TextView) findViewById(R.id.t1);
+        professor = (TextView) findViewById(R.id.t2);
+        Duration = (TextView) findViewById(R.id.t3);
+        Exam_Start = (TextView) findViewById(R.id.t4);
+        Exam_End = (TextView) findViewById(R.id.t5);
+        Degree = (TextView) findViewById(R.id.t6);
         course.setText(c.get(4));
         professor.setText(c.get(5));
         Duration.setText(c.get(0));
         Exam_Start.setText(c.get(1));
         Exam_End.setText(c.get(2));
         Degree.setText(c.get(3));
+        button = (Button) findViewById(R.id.button2);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-        button = (Button)findViewById(R.id.button2);
-        button.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                retrofit.getINSTANCE().getApi().examdata(c.get(8)).enqueue(new Callback<List<exam>>() {
-                    @Override
-                    public void onResponse(Call<List<exam>> call, Response<List<exam>> response) {
-                        if(response.isSuccessful())
-                        {
-                            for(int i=0;i<response.body().size();i++)
-                            {
-                                examdata.add(i,response.body().get(i));
+                        retrofit.getINSTANCE().getApi().examdata(c.get(8)).enqueue(new Callback<List<exam>>() {
+                            @Override
+                            public void onResponse(Call<List<exam>> call, Response<List<exam>> response) {
+                                if (response.isSuccessful()) {
+                                    for (int i = 0; i < response.body().size(); i++) {
+                                        examdata.add(i, response.body().get(i));
+                                    }
+                                    examdata1();
+                                }
                             }
-                            examdata1();
-                        }
+
+                            @Override
+                            public void onFailure(Call<List<exam>> call, Throwable t) {
+                                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+
+                            }
+                        });
                     }
 
-                    @Override
-                    public void onFailure(Call<List<exam>> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
-
-                    }
-                });
-            }
-        });
+            });
     }
     public void examdata1()
     {

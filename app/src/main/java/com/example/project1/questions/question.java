@@ -1,5 +1,6 @@
 package com.example.project1.questions;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -34,11 +35,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
-
-
-
 public class question extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
     private AppBarConfiguration mAppBarConfiguration;
     RecyclerView answer_sheet_view;
     TextView txt_right_answer;
@@ -58,9 +55,7 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         if(countDownTimer !=null)
             countDownTimer.cancel();
         super.onDestroy();
-
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,8 +76,6 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
      /*   NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);*/
-
-
         txt_right_answer = (TextView)findViewById(R.id.txt_question_right);
         txt_right_answer.setText("0 / "+examdata.size());
         txt_timer = (TextView)findViewById(R.id.txt_timer);
@@ -102,16 +95,7 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         //for choices
         viewPager.setAdapter(mcqAdapter);
         tabLayout.setupWithViewPager(viewPager);
-
-
-
-
-
-
     }
-
-
-
     private void countTimer() {
         if(countDownTimer == null) {
             countDownTimer = new CountDownTimer(Total_Time, 1000) {
@@ -123,7 +107,6 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
                                     TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l))));
                     time_play -= 1000;
                 }
-
                 @Override
                 public void onFinish() {
                     Intent myIntent = new Intent(question.this, result.class);
@@ -184,16 +167,13 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
-
         if(id ==R.id.finish_exam)
         {
-
             if(!isAnswerModeView)
             {
                 AlertDialog dialog =new AlertDialog.Builder(this)
                         .setMessage("Do you want to finish?").setNegativeButton("No",null)
                         .setPositiveButton("Yes",null).show();
-
                 Button positive = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
                 positive.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -207,6 +187,29 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+       AlertDialog.Builder builder=new AlertDialog.Builder(this);
+       builder.setMessage("Do you want to finish?")
+               .setCancelable(false)
+               .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialog, int which) {
+                       question.super.onBackPressed();
+                       Intent myIntent = new Intent(question.this, result.class);
+                       startActivity(myIntent);
+                   }
+               })
+               .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialog, int which) {
+                       dialog.cancel();
+                   }
+               });
+       AlertDialog alertDialog=builder.create();
+       alertDialog.show();
     }
     //@Override
   /*  public boolean onSupportNavigateUp() {
