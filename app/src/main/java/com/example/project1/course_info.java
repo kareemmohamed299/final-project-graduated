@@ -93,6 +93,8 @@ public class course_info extends AppCompatActivity {
     {
         Intent myIntent = new Intent(this, question.class);
         myIntent.putParcelableArrayListExtra("exam",examdata);
+       
+        myIntent.putStringArrayListExtra("c",c);
         startActivity(myIntent);
     }
 }

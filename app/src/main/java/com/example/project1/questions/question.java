@@ -32,7 +32,6 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -47,11 +46,16 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
     boolean isAnswerModeView = false;
     public static CountDownTimer countDownTimer;
     ArrayList<exam> examdata ;
-    public ArrayList<mcq_question> fragmentList = new ArrayList<>();
+    public  static ArrayList<mcq_question> fragmentList = new ArrayList<>();
     ViewPager viewPager;
     TabLayout tabLayout;
     //for choices
-
+    @Override
+    protected void onDestroy() {
+        if(countDownTimer !=null)
+            countDownTimer.cancel();
+        super.onDestroy();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +66,6 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         NavigationView navigationView = findViewById(R.id.nav_view);
         examdata=new ArrayList<exam>();
         examdata=getIntent().getParcelableArrayListExtra("exam");
-        String x= String.valueOf(examdata.size());
-        Toast.makeText(getApplicationContext(),x,Toast.LENGTH_LONG).show();
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
        /* mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -94,13 +96,6 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         viewPager.setAdapter(mcqAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }
-    @Override
-    protected void onDestroy() {
-        if(countDownTimer !=null)
-        {
-            countDownTimer.cancel();}
-        super.onDestroy();
-    }
     private void countTimer() {
         if(countDownTimer == null) {
             countDownTimer = new CountDownTimer(Total_Time, 1000) {
@@ -118,6 +113,7 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
                     startActivity(myIntent);
                 }
             }.start();
+
         }
         else
         {
@@ -138,6 +134,7 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
                 }
             }.start();
         }
+
     }
     private void genFragmentList(){
 
@@ -172,8 +169,22 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         int id = item.getItemId();
         if(id ==R.id.finish_exam)
         {
+            if(!isAnswerModeView)
+            {
+                AlertDialog dialog =new AlertDialog.Builder(this)
+                        .setMessage("Do you want to finish?").setNegativeButton("No",null)
+                        .setPositiveButton("Yes",null).show();
+                Button positive = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                positive.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent myIntent = new Intent(question.this, result.class);
+                        startActivity(myIntent);
+                    }
+                });
 
-            onBackPressed();
+            }
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
