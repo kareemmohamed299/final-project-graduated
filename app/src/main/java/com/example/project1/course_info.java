@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.project1.connection.cource;
 import com.example.project1.connection.exam;
 import com.example.project1.connection.retrofit;
 import com.example.project1.questions.question;
@@ -28,6 +29,7 @@ public class course_info extends AppCompatActivity {
     private TextView course,professor,Duration,Exam_Start,Exam_End,Degree;
     private Button button ;
     private ArrayList<exam> examdata=new ArrayList<exam>();
+    private SharedPreferences k;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +51,9 @@ public class course_info extends AppCompatActivity {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    SharedPreferences.Editor editor= k.edit();
+                    editor.putInt("data",Integer.parseInt(c.get(8)));
+                    editor.apply();
                         retrofit.getINSTANCE().getApi().examdata(c.get(8)).enqueue(new Callback<List<exam>>() {
                             @Override
                             public void onResponse(Call<List<exam>> call, Response<List<exam>> response) {
@@ -60,16 +64,30 @@ public class course_info extends AppCompatActivity {
                                     examdata1();
                                 }
                             }
-
                             @Override
                             public void onFailure(Call<List<exam>> call, Throwable t) {
                                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-
                             }
                         });
                     }
 
             });
+        k=getSharedPreferences("kareem", Context.MODE_PRIVATE);
+    }
+    @Override
+    protected void onStart() {
+        int x=k.getInt("data",0);
+            if(x== Integer.parseInt(c.get(8)))
+            {
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(),"مش هتخش تاني يا شرمط",Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+
+        super.onStart();
     }
     public void examdata1()
     {

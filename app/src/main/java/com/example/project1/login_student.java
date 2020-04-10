@@ -43,8 +43,8 @@ public class login_student extends AppCompatActivity {
     public void openwelcome(){
         t1=tv1.getText().toString().trim();
         t2=tv2.getText().toString().trim();
-        map.put("email",t1);
-        map.put("password",t2);
+        map.put("email","kareem@asu.ed");
+        map.put("password","123456");
         retrofit.getINSTANCE().getApi().getdata(map).enqueue(new Callback<student>() {
             @Override
             public void onResponse(Call<student> call, Response<student> response) {
@@ -106,14 +106,14 @@ public class login_student extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                openwelcome();
+               /* if (awesomeValidation.validate()) {
 
-                if (awesomeValidation.validate()) {
-                                       openwelcome();
                 }
                 else
                     {
                     Toast.makeText(getApplicationContext(), "Validation error", Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
 

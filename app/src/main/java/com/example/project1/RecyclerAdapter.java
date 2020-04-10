@@ -114,11 +114,8 @@ RecyclerAdapter(ArrayList<cource> course, Context context)
                                 .setAction("Action", null).show();
                     }
                 });
-
             }
         });
-
-
     }
     @Override
     public int getItemCount() {
