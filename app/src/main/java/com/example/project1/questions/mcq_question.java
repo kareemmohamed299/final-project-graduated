@@ -44,7 +44,7 @@ public class mcq_question extends Fragment {
         recyclerView = (RecyclerView) itemView.findViewById(R.id.recycler_view);
         layoutManager = new GridLayoutManager(mcq_question.this.getActivity(),1);
         recyclerView.setLayoutManager(layoutManager);
-        adapter2 = new choiceAdapter(examdata);
+        adapter2 = new choiceAdapter(examdata,mcq_question.this.getActivity());
         recyclerView.setAdapter(adapter2);
 
         return itemView;

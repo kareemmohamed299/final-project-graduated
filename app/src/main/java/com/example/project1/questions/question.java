@@ -40,10 +40,9 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
     public static final int Total_Time = 1*60*1000;
     int time_play = Total_Time;
     RecyclerView.Adapter adapter;
-    boolean isAnswerModeView = false;
     public static CountDownTimer countDownTimer;
     ArrayList<exam> examdata ;
-    public  static ArrayList<mcq_question> fragmentList = new ArrayList<>();
+    public ArrayList<mcq_question> fragmentList = new ArrayList<>();
     ViewPager viewPager;
     TabLayout tabLayout;
     @Override
@@ -59,26 +58,14 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-       /* NavigationView navigationView = findViewById(R.id.nav_view);*/
         examdata=new ArrayList<exam>();
         examdata=getIntent().getParcelableArrayListExtra("exam");
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-       /* mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
-                .setDrawerLayout(drawer)
-                .build();*/
-     /*   NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);*/
         txt_right_answer = (TextView)findViewById(R.id.txt_question_right);
         txt_right_answer.setText("0 / "+examdata.size());
         txt_timer = (TextView)findViewById(R.id.txt_timer);
         txt_timer.setVisibility(View.VISIBLE);
         txt_right_answer.setVisibility(View.VISIBLE);
         countTimer();
-        /*navigationView.setNavigationItemSelectedListener(this);*/
         answer_sheet_view = (RecyclerView)findViewById(R.id.grid_answer);
         answer_sheet_view.setHasFixedSize(true);
         answer_sheet_view.setLayoutManager(new GridLayoutManager(this,4));
@@ -88,7 +75,6 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         genFragmentList();
         mcqAdapter mcqAdapter  = new mcqAdapter(getSupportFragmentManager(),fragmentList);
-        //for choices
         viewPager.setAdapter(mcqAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }
@@ -106,6 +92,7 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
                 @Override
                 public void onFinish() {
                     Intent myIntent = new Intent(question.this, result.class);
+                    myIntent.putParcelableArrayListExtra("exam",examdata);
                     startActivity(myIntent);
                 }
             }.start();
@@ -126,11 +113,11 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
                 @Override
                 public void onFinish() {
                     Intent myIntent = new Intent(question.this, result.class);
+                    myIntent.putParcelableArrayListExtra("exam",examdata);
                     startActivity(myIntent);
                 }
             }.start();
         }
-
     }
     private void genFragmentList(){
 
@@ -146,14 +133,11 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
             }
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.question, menu);
         return true;
     }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
@@ -169,7 +153,6 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         }
         return super.onOptionsItemSelected(item);
     }
-
     @Override
     public void onBackPressed() {
        AlertDialog.Builder builder=new AlertDialog.Builder(this);
@@ -180,6 +163,7 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
                    public void onClick(DialogInterface dialog, int which) {
                        question.super.onBackPressed();
                        Intent myIntent = new Intent(question.this, result.class);
+                       myIntent.putParcelableArrayListExtra("exam",examdata);
                        startActivity(myIntent);
                    }
                })

@@ -2,8 +2,6 @@ package com.example.project1.correction;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import com.example.project1.R;
@@ -27,7 +25,7 @@ public class result extends AppCompatActivity {
         layoutManager = new GridLayoutManager(result.this,3);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new answerAdapter(result.this);
+        adapter = new answerAdapter();
         recyclerView.setAdapter(adapter);
 
     }
