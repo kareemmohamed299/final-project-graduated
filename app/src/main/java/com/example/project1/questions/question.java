@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.project1.R;
 import com.example.project1.connection.exam;
-import com.example.project1.result;
+import com.example.project1.correction.result;
 
 import android.os.CountDownTimer;
 import android.view.MenuItem;
@@ -14,8 +14,6 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import com.google.android.material.navigation.NavigationView;
@@ -30,7 +28,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.Menu;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -49,7 +46,6 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
     public  static ArrayList<mcq_question> fragmentList = new ArrayList<>();
     ViewPager viewPager;
     TabLayout tabLayout;
-    //for choices
     @Override
     protected void onDestroy() {
         if(countDownTimer !=null)
@@ -63,7 +59,7 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+       /* NavigationView navigationView = findViewById(R.id.nav_view);*/
         examdata=new ArrayList<exam>();
         examdata=getIntent().getParcelableArrayListExtra("exam");
         // Passing each menu ID as a set of Ids because each
@@ -82,7 +78,7 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         txt_timer.setVisibility(View.VISIBLE);
         txt_right_answer.setVisibility(View.VISIBLE);
         countTimer();
-        navigationView.setNavigationItemSelectedListener(this);
+        /*navigationView.setNavigationItemSelectedListener(this);*/
         answer_sheet_view = (RecyclerView)findViewById(R.id.grid_answer);
         answer_sheet_view.setHasFixedSize(true);
         answer_sheet_view.setLayoutManager(new GridLayoutManager(this,4));
@@ -169,22 +165,7 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         int id = item.getItemId();
         if(id ==R.id.finish_exam)
         {
-            if(!isAnswerModeView)
-            {
-                AlertDialog dialog =new AlertDialog.Builder(this)
-                        .setMessage("Do you want to finish?").setNegativeButton("No",null)
-                        .setPositiveButton("Yes",null).show();
-                Button positive = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                positive.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent myIntent = new Intent(question.this, result.class);
-                        startActivity(myIntent);
-                    }
-                });
-
-            }
-            return true;
+           onBackPressed();
         }
         return super.onOptionsItemSelected(item);
     }

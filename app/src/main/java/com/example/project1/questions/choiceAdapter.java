@@ -20,7 +20,8 @@ public class choiceAdapter extends RecyclerView.Adapter<choiceAdapter.ViewHolder
 
     exam examdata;
 
-    private int position ;
+
+    private int position=-1 ;
 
      public choiceAdapter(exam e)
      {
@@ -45,6 +46,8 @@ public class choiceAdapter extends RecyclerView.Adapter<choiceAdapter.ViewHolder
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.choice_layout, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(v);
+
+
         return viewHolder;
     }
 

@@ -22,7 +22,8 @@
             android:layout_height="wrap_content"
             android:text="What do you choose?"
             android:textStyle="bold"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
