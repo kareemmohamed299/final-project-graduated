@@ -1,15 +1,15 @@
 package com.example.project1.correction;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import com.example.project1.R;
-import com.example.project1.questions.question;
 
-public class result extends AppCompatActivity {
+import com.example.project1.R;
+
+public class show_mcq_answer extends AppCompatActivity {
+
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
@@ -18,19 +18,15 @@ public class result extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.result);
-
+        setContentView(R.layout.show_mcq_answer);
 
         recyclerView =
                 (RecyclerView) findViewById(R.id.recycler_view);
 
-        layoutManager = new GridLayoutManager(result.this,3);
+        layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new answerAdapter(result.this);
+        adapter = new choiceAdapterOfShowMcq();
         recyclerView.setAdapter(adapter);
-
     }
-
-
 }

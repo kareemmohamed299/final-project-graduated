@@ -1,5 +1,7 @@
 package com.example.project1.correction;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project1.R;
+import com.google.android.material.snackbar.Snackbar;
 
 
 public class answerAdapter extends RecyclerView.Adapter<answerAdapter.ViewHolder>  {
@@ -31,6 +34,11 @@ public class answerAdapter extends RecyclerView.Adapter<answerAdapter.ViewHolder
             "wrong", "right","right","right","wrong","right"
     };
 
+    private Context aContext;
+    answerAdapter(Context context)
+    {
+        aContext=context;
+    }
 
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -68,6 +76,15 @@ public class answerAdapter extends RecyclerView.Adapter<answerAdapter.ViewHolder
             holder.card_view.setCardBackgroundColor(Color.parseColor("#00D152"));
         else
             holder.card_view.setCardBackgroundColor(Color.parseColor("#F83D33"));
+
+
+        holder.card_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent1 = new Intent(aContext,show_mcq_answer.class);
+                aContext.startActivity(myIntent1);
+            }
+        });
 
     }
 

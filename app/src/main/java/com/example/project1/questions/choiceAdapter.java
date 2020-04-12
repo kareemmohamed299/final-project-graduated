@@ -72,7 +72,7 @@ public class choiceAdapter extends RecyclerView.Adapter<choiceAdapter.ViewHolder
             }
         });
         if(position == i) {
-            viewHolder.card_view.setCardBackgroundColor(Color.parseColor("#b70505"));
+            viewHolder.card_view.setCardBackgroundColor(Color.parseColor("#00D152"));
         }
         else
         {
