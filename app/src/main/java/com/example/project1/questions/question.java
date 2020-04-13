@@ -35,7 +35,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 public class question extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private AppBarConfiguration mAppBarConfiguration;
     RecyclerView answer_sheet_view;
     TextView txt_right_answer;
     TextView txt_timer;
@@ -54,7 +53,6 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
     protected void onDestroy() {
         if(countDownTimer !=null)
             countDownTimer.cancel();
-
         super.onDestroy();
     }
     @Override

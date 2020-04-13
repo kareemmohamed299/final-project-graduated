@@ -28,18 +28,6 @@ public class answerAdapter extends RecyclerView.Adapter<answerAdapter.ViewHolder
         this.degree=d;
         this.examdata=e;
     }
-    private String[] questions = {"Question 1",
-            "Question 2",
-            "Question 3",
-            "Question 4",
-            "Question 5", "Question 6","Question 7","Question 8","Question 9","Question 10"
-    };
-    private String[] ans = {"right",
-            "right",
-            "right",
-            "right",
-            "wrong", "right","right","right","wrong","right"
-    };
     class ViewHolder extends RecyclerView.ViewHolder{
         private TextView question_num;
         private CardView card_view;
