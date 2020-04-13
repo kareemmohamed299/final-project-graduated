@@ -1,7 +1,9 @@
 package com.example.project1.questions;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.project1.R;
@@ -37,18 +39,22 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
     RecyclerView answer_sheet_view;
     TextView txt_right_answer;
     TextView txt_timer;
-    public static final int Total_Time = 1*60*1000;
+    public static final int Total_Time = 1*20*1000;
     int time_play = Total_Time;
     RecyclerView.Adapter adapter;
     public static CountDownTimer countDownTimer;
     ArrayList<exam> examdata ;
+    ArrayList<String> c;
     public ArrayList<mcq_question> fragmentList = new ArrayList<>();
     ViewPager viewPager;
     TabLayout tabLayout;
+    private String student_answer;
+    private SharedPreferences sa;
     @Override
     protected void onDestroy() {
         if(countDownTimer !=null)
             countDownTimer.cancel();
+
         super.onDestroy();
     }
     @Override
@@ -60,6 +66,7 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         examdata=new ArrayList<exam>();
         examdata=getIntent().getParcelableArrayListExtra("exam");
+        c = getIntent().getStringArrayListExtra("c");
         txt_right_answer = (TextView)findViewById(R.id.txt_question_right);
         txt_right_answer.setText("0 / "+examdata.size());
         txt_timer = (TextView)findViewById(R.id.txt_timer);
@@ -69,7 +76,7 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         answer_sheet_view = (RecyclerView)findViewById(R.id.grid_answer);
         answer_sheet_view.setHasFixedSize(true);
         answer_sheet_view.setLayoutManager(new GridLayoutManager(this,4));
-        adapter = new AnswerSheetAdapter(examdata);
+        adapter = new AnswerSheetAdapter(examdata,question.this);
         answer_sheet_view.setAdapter(adapter);
         viewPager = (ViewPager)findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
@@ -77,6 +84,7 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         mcqAdapter mcqAdapter  = new mcqAdapter(getSupportFragmentManager(),fragmentList);
         viewPager.setAdapter(mcqAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        sa=getSharedPreferences("answers", Context.MODE_PRIVATE);
     }
     private void countTimer() {
         if(countDownTimer == null) {
@@ -93,10 +101,12 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
                 public void onFinish() {
                     Intent myIntent = new Intent(question.this, result.class);
                     myIntent.putParcelableArrayListExtra("exam",examdata);
+                    myIntent.putExtra("degree",correction_prosses());
+                    myIntent.putStringArrayListExtra("c",c);
                     startActivity(myIntent);
+                    finish();
                 }
             }.start();
-
         }
         else
         {
@@ -114,7 +124,10 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
                 public void onFinish() {
                     Intent myIntent = new Intent(question.this, result.class);
                     myIntent.putParcelableArrayListExtra("exam",examdata);
+                    myIntent.putExtra("degree",correction_prosses());
+                    myIntent.putStringArrayListExtra("c",c);
                     startActivity(myIntent);
+                    finish();
                 }
             }.start();
         }
@@ -164,6 +177,8 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
                        question.super.onBackPressed();
                        Intent myIntent = new Intent(question.this, result.class);
                        myIntent.putParcelableArrayListExtra("exam",examdata);
+                       myIntent.putExtra("degree",correction_prosses());
+                       myIntent.putStringArrayListExtra("c",c);
                        startActivity(myIntent);
                    }
                })
@@ -176,10 +191,17 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
        AlertDialog alertDialog=builder.create();
        alertDialog.show();
     }
-    //@Override
-  /*  public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
-    }*/
+    private int correction_prosses()
+    {
+        int degree=0;
+        for(int i=0;i<examdata.size();i++)
+        {
+            student_answer=sa.getString(examdata.get(i).getId(),"No_answer");
+            if(examdata.get(i).getAnswer_text().equals(student_answer))
+            {
+                degree+=Integer.parseInt(examdata.get(i).getDegree());
+            }
+        }
+        return degree;
+    }
 }

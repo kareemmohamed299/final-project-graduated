@@ -67,7 +67,7 @@ public class choiceAdapter extends RecyclerView.Adapter<choiceAdapter.ViewHolder
             }
         });
         if(position == i) {
-            viewHolder.card_view.setCardBackgroundColor(Color.parseColor("#00D152"));
+            viewHolder.card_view.setCardBackgroundColor(Color.parseColor("#3FCADD"));
         }
         else
         {
@@ -78,7 +78,4 @@ public class choiceAdapter extends RecyclerView.Adapter<choiceAdapter.ViewHolder
     public int getItemCount() {
         return examdata.getChoices().size();
     }
-
-
-
 }
