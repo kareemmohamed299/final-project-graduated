@@ -2,45 +2,31 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/compo"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_margin="10dp"
     >
-    <TextView
+
+    <EditText
         android:id="@+id/text_stuans"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:paddingTop="7dp"
+        android:paddingStart="2dp"
+        android:hint="ANS"
         android:textSize="12sp"
-        android:text="1"
-        android:textAlignment="center"
         android:textColorHint="@color/offwhite"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_marginStart="0dp"
         android:background="@drawable/field_login"
         android:elevation="1dp"/>
-
-    <TextView
-        android:id="@+id/text_rightans"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:paddingTop="7dp"
-        android:textSize="12sp"
-        android:text="3"
-        android:textAlignment="center"
-        android:textColorHint="@color/offwhite"
-        android:layout_marginTop="60dp"
-        android:layout_marginStart="0dp"
-        android:background="@drawable/field_login"
-        android:elevation="1dp"/>
-
 
 
     <androidx.cardview.widget.CardView
     android:layout_width="130dp"
     android:layout_height="110dp"
-    android:id="@+id/card_view_showmatch1"
+    android:id="@+id/card_view_match1"
     android:layout_marginStart="40dp"
     card_view:cardBackgroundColor="@color/white"
     card_view:cardCornerRadius="17dp"
@@ -56,7 +42,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/qmatch_text_show"
+            android:id="@+id/qmatch_text"
             android:text="Q1"
             android:layout_centerInParent="true"
             android:textColor="@color/dark_blue"
@@ -68,7 +54,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="130dp"
         android:layout_height="110dp"
-        android:id="@+id/card_view_showmatch2"
+        android:id="@+id/card_view_match2"
         android:layout_marginStart="200dp"
         card_view:cardBackgroundColor="@color/white"
         card_view:cardCornerRadius="17dp"
@@ -84,7 +70,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/amatch_text_show"
+                android:id="@+id/amatch_text"
                 android:text="A1"
                 android:layout_centerInParent="true"
                 android:textColor="@color/dark_blue"
