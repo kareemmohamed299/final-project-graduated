@@ -11,9 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".correction.show_match_answer"></activity>
         <activity
             android:name=".professor.third_prof"
-            android:label="@string/title_activity_third_prof"></activity>
+            android:label="@string/title_activity_third_prof" />
         <activity android:name=".correction.show_mcq_answer" />
         <activity android:name=".correction.result" />
         <activity

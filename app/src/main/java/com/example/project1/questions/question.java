@@ -16,6 +16,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import com.google.android.material.navigation.NavigationView;
@@ -33,6 +34,7 @@ import android.view.Menu;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 public class question extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private String[] qa = {"Q1",
@@ -52,8 +54,7 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
     public static CountDownTimer countDownTimer;
     ArrayList<exam> examdata ;
     ArrayList<String> c;
-    public ArrayList<> fragmentList = new ArrayList<>();
-    /*public ArrayList<match_question> fragmentList2 = new ArrayList<>();*/
+    List<Fragment> fragmentList3 = new ArrayList<>();
     ViewPager viewPager;
     TabLayout tabLayout;
     private String student_answer;
@@ -85,13 +86,12 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         answer_sheet_view.setLayoutManager(new GridLayoutManager(this,4));
         adapter = new AnswerSheetAdapter(examdata,question.this);
         answer_sheet_view.setAdapter(adapter);
-        viewPager = (ViewPager)findViewById(R.id.viewpager);
+        viewPager= (ViewPager)findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         genFragmentList();
-        mcqAdapter mcqAdapter  = new mcqAdapter(getSupportFragmentManager(),fragmentList);
-        matchAdapter matchAdapter  = new matchAdapter(getSupportFragmentManager(),fragmentList2);
-        viewPager.setAdapter(mcqAdapter);
-       /* viewPager.setAdapter(matchAdapter);*/
+        genFragmentList2();
+        qAdapter qAdapter  = new qAdapter(getSupportFragmentManager(),fragmentList3);
+        viewPager.setAdapter(qAdapter);
         tabLayout.setupWithViewPager(viewPager);
         sa=getSharedPreferences("answers", Context.MODE_PRIVATE);
     }
@@ -143,30 +143,26 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
     }
     private void genFragmentList(){
 
-        if(fragmentList.isEmpty())
-        {
-            for(int i=0;i<(examdata.size()+qa.length);i++)
+            for(int i=0;i<(examdata.size());i++)
             {
-                if(i<examdata.size())
-                {
                 mcq_question frag = new mcq_question();
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("ex",examdata.get(i));
                 frag.setArguments(bundle);
-                fragmentList.add(frag);
-                }
-                else
-                {
-                    match_question frag2 = new match_question();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("ex2",qa[i]);
-                    frag2.setArguments(bundle);
-                    fragmentList.add(frag2);
-                }
-
-
+                fragmentList3.add(frag);
             }
         }
+
+
+
+    private void genFragmentList2(){
+
+            for(int i=0;i<(qa.length)/2;i++) {
+
+                match_question frag2 = new match_question();
+                fragmentList3.add(frag2);
+
+            }
     }
 
 
