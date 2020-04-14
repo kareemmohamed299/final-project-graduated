@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+
+import com.example.project1.professor.third_prof;
 import com.example.project1.welcome;
 
 
@@ -31,15 +33,15 @@ public class login_professor extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                openwelcome();
+                openprof();
             }
         });
     }
 
 
 
-    public void openwelcome(){
-        Intent myIntent1 = new Intent(this, welcome.class);
+    public void openprof(){
+        Intent myIntent1 = new Intent(this, third_prof.class);
         startActivity(myIntent1);
     }
 

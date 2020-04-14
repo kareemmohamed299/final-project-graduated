@@ -36,7 +36,7 @@ public class RecyclerAdapter  extends RecyclerView.Adapter<RecyclerAdapter.ViewH
     private ArrayList<cource> course1 = new ArrayList<>();
     private Context mContext;
     private ArrayList<String>c;
-RecyclerAdapter(ArrayList<cource> course, Context context)
+public RecyclerAdapter(ArrayList<cource> course, Context context)
 {
     this.course1 = course;
     mContext = context;
