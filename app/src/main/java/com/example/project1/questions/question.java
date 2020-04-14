@@ -35,6 +35,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 public class question extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private String[] qa = {"Q1",
+            "Q2",
+            "Q3",
+            "Q4",
+            "A1",
+            "A2","A3",
+            "A4"
+    };
     RecyclerView answer_sheet_view;
     TextView txt_right_answer;
     TextView txt_timer;
@@ -44,7 +52,8 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
     public static CountDownTimer countDownTimer;
     ArrayList<exam> examdata ;
     ArrayList<String> c;
-    public ArrayList<mcq_question> fragmentList = new ArrayList<>();
+    public ArrayList<> fragmentList = new ArrayList<>();
+    /*public ArrayList<match_question> fragmentList2 = new ArrayList<>();*/
     ViewPager viewPager;
     TabLayout tabLayout;
     private String student_answer;
@@ -80,7 +89,9 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         genFragmentList();
         mcqAdapter mcqAdapter  = new mcqAdapter(getSupportFragmentManager(),fragmentList);
+        matchAdapter matchAdapter  = new matchAdapter(getSupportFragmentManager(),fragmentList2);
         viewPager.setAdapter(mcqAdapter);
+       /* viewPager.setAdapter(matchAdapter);*/
         tabLayout.setupWithViewPager(viewPager);
         sa=getSharedPreferences("answers", Context.MODE_PRIVATE);
     }
@@ -134,16 +145,32 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
 
         if(fragmentList.isEmpty())
         {
-            for(int i=0;i<examdata.size();i++)
+            for(int i=0;i<(examdata.size()+qa.length);i++)
             {
+                if(i<examdata.size())
+                {
                 mcq_question frag = new mcq_question();
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("ex",examdata.get(i));
                 frag.setArguments(bundle);
                 fragmentList.add(frag);
+                }
+                else
+                {
+                    match_question frag2 = new match_question();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("ex2",qa[i]);
+                    frag2.setArguments(bundle);
+                    fragmentList.add(frag2);
+                }
+
+
             }
         }
     }
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.question, menu);
