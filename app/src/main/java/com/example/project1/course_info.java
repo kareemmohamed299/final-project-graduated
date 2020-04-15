@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.project1.connection.cource;
 import com.example.project1.connection.exam;
+import com.example.project1.connection.match;
 import com.example.project1.connection.retrofit;
 import com.example.project1.questions.question;
 
@@ -29,6 +30,7 @@ public class course_info extends AppCompatActivity {
     private TextView course,professor,Duration,Exam_Start,Exam_End,Degree;
     private Button button ;
     private ArrayList<exam> examdata=new ArrayList<exam>();
+    private ArrayList<match> matchdata=new ArrayList<match>();
     private SharedPreferences k;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,26 +53,42 @@ public class course_info extends AppCompatActivity {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SharedPreferences.Editor editor= k.edit();
-                    editor.putInt("data",Integer.parseInt(c.get(8)));
+                    SharedPreferences.Editor editor = k.edit();
+                    editor.putInt("data", Integer.parseInt(c.get(8)));
                     editor.apply();
-                        retrofit.getINSTANCE().getApi().examdata(c.get(8)).enqueue(new Callback<List<exam>>() {
-                            @Override
-                            public void onResponse(Call<List<exam>> call, Response<List<exam>> response) {
-                                if (response.isSuccessful()) {
-                                    for (int i = 0; i < response.body().size(); i++) {
-                                        examdata.add(i, response.body().get(i));
-                                    }
-                                    examdata1();
+                    retrofit.getINSTANCE().getApi().mcq_question(c.get(8)).enqueue(new Callback<List<exam>>() {
+                        @Override
+                        public void onResponse(Call<List<exam>> call, Response<List<exam>> response) {
+                            if (response.isSuccessful()) {
+                                for (int i = 0; i < response.body().size(); i++) {
+                                    examdata.add(i, response.body().get(i));
                                 }
+                                retrofit.getINSTANCE().getApi().match_question(c.get(8)).enqueue(new Callback<List<match>>() {
+                                    @Override
+                                    public void onResponse(Call<List<match>> call, Response<List<match>> response) {
+                                        if (response.isSuccessful()) {
+                                            for (int i = 0; i < response.body().size(); i++) {
+                                                matchdata.add(i, response.body().get(i));
+                                            }
+                                            examdata1();
+                                        }
+                                    }
+                                    @Override
+                                    public void onFailure(Call<List<match>> call, Throwable t) {
+                                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             }
-                            @Override
-                            public void onFailure(Call<List<exam>> call, Throwable t) {
-                                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
 
+                        }
+                        @Override
+                        public void onFailure(Call<List<exam>> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                    //Toast.makeText(getApplicationContext(),String.valueOf(examdata.size()+matchdata.size()), Toast.LENGTH_LONG).show();
+                }
             });
         k=getSharedPreferences("kareem", Context.MODE_PRIVATE);
     }
@@ -86,13 +104,13 @@ public class course_info extends AppCompatActivity {
                     }
                 });
             }
-
         super.onStart();
     }
     public void examdata1()
     {
         Intent myIntent = new Intent(this, question.class);
-        myIntent.putParcelableArrayListExtra("exam",examdata);
+        myIntent.putParcelableArrayListExtra("mcq",examdata);
+        myIntent.putParcelableArrayListExtra("match",matchdata);
         myIntent.putStringArrayListExtra("c",c);
         startActivity(myIntent);
     }

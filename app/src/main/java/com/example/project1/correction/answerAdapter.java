@@ -14,19 +14,23 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.project1.R;
 import com.example.project1.connection.exam;
+import com.example.project1.connection.match;
 
 import java.util.ArrayList;
 
 public class answerAdapter extends RecyclerView.Adapter<answerAdapter.ViewHolder>  {
     private Context context;
-    ArrayList<exam> examdata ;
+    ArrayList<exam> mcqdata ;
+    ArrayList<match>matchdata  ;
     private int degree;
     private SharedPreferences q;
-    public answerAdapter(ArrayList<exam> e,int d, Context c)
+    int p=0;
+    public answerAdapter(ArrayList<exam> e, ArrayList<match> m, int d, Context c)
     {
         this.context=c;
         this.degree=d;
-        this.examdata=e;
+        this.mcqdata=e;
+        this.matchdata=m;
     }
     class ViewHolder extends RecyclerView.ViewHolder{
         private TextView question_num;
@@ -52,22 +56,36 @@ public class answerAdapter extends RecyclerView.Adapter<answerAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull answerAdapter.ViewHolder holder, final int position) {
         holder.question_num.setText("Question"+(position+1));
-        if(examdata.get(position).getAnswer_text().equals(q.getString(examdata.get(position).getId(),"k")))
-            holder.card_view.setCardBackgroundColor(Color.parseColor("#00D152"));
-        else{
-            holder.card_view.setCardBackgroundColor(Color.parseColor("#F83D33"));
-        }
+        /*في مشكله في العرض */
+        /*p=holder.getLayoutPosition();
+            if (p <= mcqdata.size()) {
+                if (mcqdata.get(position).getAnswer_text().equals(q.getString(mcqdata.get(position).getId(), "k")))
+                    holder.card_view.setCardBackgroundColor(Color.parseColor("#00D152"));
+                //else
+                    //holder.card_view.setCardBackgroundColor(Color.parseColor("#F83D33"));
+            }
+            else
+                holder.card_view.setCardBackgroundColor(Color.parseColor("#F83D33"));
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent1 = new Intent(context,show_mcq_answer.class);
-                myIntent1.putExtra("ex",examdata.get(position));
-                context.startActivity(myIntent1);
+                if(p<=mcqdata.size()) {
+                    Intent myIntent1 = new Intent(context, show_mcq_answer.class);
+                    myIntent1.putExtra("ex", mcqdata.get(position));
+                    context.startActivity(myIntent1);
+                }
+                else {
+                    Intent myIntent1 = new Intent(context, show_match_answer.class);
+                    context.startActivity(myIntent1);
+
+                }
+
+
             }
-        });
+        });*/
     }
     @Override
     public int getItemCount() {
-        return examdata.size();
+        return (mcqdata.size()+matchdata.size());
     }
 }

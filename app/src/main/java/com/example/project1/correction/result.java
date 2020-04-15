@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.project1.R;
 import com.example.project1.connection.exam;
+import com.example.project1.connection.match;
 import com.example.project1.course_info;
 import com.example.project1.questions.question;
 
@@ -23,15 +24,18 @@ public class result extends AppCompatActivity {
     ArrayList<String> c;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter;
-    private ArrayList<exam> examdata ;
+    private ArrayList<exam> mcqdata ;
+    private ArrayList<match> matchdata ;
     private int degree;
     private TextView n;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.result);
-        examdata=new ArrayList<exam>();
-        examdata=getIntent().getParcelableArrayListExtra("exam");
+        mcqdata=new ArrayList<exam>();
+        matchdata=new ArrayList<match>();
+        mcqdata=getIntent().getParcelableArrayListExtra("mcq");
+        matchdata=getIntent().getParcelableArrayListExtra("match");
         degree=getIntent().getIntExtra("degree",0);
         c = getIntent().getStringArrayListExtra("c");
         n=(TextView)findViewById(R.id.score);
@@ -39,17 +43,16 @@ public class result extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         layoutManager = new GridLayoutManager(result.this,3);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new answerAdapter(examdata,degree,result.this);
+        adapter = new answerAdapter(mcqdata,matchdata,degree,result.this);
         recyclerView.setAdapter(adapter);
     }
-
-   /* @Override
+    @Override
     public void onBackPressed() {
                         result.super.onBackPressed();
                         Intent myIntent = new Intent(result.this, course_info.class);
                         myIntent.putStringArrayListExtra("c",c);
                         startActivity(myIntent);
-    }*/
+    }
 
 
 }

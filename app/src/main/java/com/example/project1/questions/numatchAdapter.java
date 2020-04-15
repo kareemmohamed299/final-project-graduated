@@ -1,5 +1,7 @@
 package com.example.project1.questions;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,21 +11,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project1.R;
+import com.example.project1.connection.match;
+
+import java.util.ArrayList;
 
 public class numatchAdapter extends RecyclerView.Adapter<numatchAdapter.ViewHolder> {
-
-
-    private String[] qa = {"Q1",
-            "Q2",
-            "Q3",
-            "Q4",
-            "A1",
-            "A2","A3",
-            "A4"
-    };
-
-
-
+    private Context context;
+    private SharedPreferences answer;
+    match matchdata;
+    ArrayList<String>matchansewr;
+    public numatchAdapter(match m,ArrayList<String>ma, Context c)
+    {
+        this.matchdata=m;
+        this.matchansewr=ma;
+        this.context=c;
+    }
     class ViewHolder extends RecyclerView.ViewHolder{
         public TextView q;
         public TextView a;
@@ -31,10 +33,8 @@ public class numatchAdapter extends RecyclerView.Adapter<numatchAdapter.ViewHold
             super(itemView);
             q = (TextView)itemView.findViewById(R.id.qmatch_text);
             a = (TextView)itemView.findViewById(R.id.amatch_text);
-
         }
     }
-
     @NonNull
     @Override
     public numatchAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,21 +43,14 @@ public class numatchAdapter extends RecyclerView.Adapter<numatchAdapter.ViewHold
         numatchAdapter.ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
-
     @Override
     public void onBindViewHolder(@NonNull numatchAdapter.ViewHolder holder, int position) {
 
-        if(position<(qa.length/2))
-            holder.q.setText(qa[position]);
-        else
-            holder.a.setText(qa[position]);
-
+            holder.q.setText(matchdata.getQuestions().get(position).getQuestion());
+            holder.a.setText(matchansewr.get(position));
     }
-
     @Override
     public int getItemCount() {
-        return (qa.length/2);
+        return matchdata.getQuestions().size();
     }
-
-
 }

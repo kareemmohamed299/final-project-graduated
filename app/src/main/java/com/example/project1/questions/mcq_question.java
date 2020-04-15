@@ -23,7 +23,6 @@ import java.util.ArrayList;
 public class mcq_question extends Fragment {
 
     TextView question_txt ;
-
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter2;
@@ -31,14 +30,13 @@ public class mcq_question extends Fragment {
     public mcq_question() {
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View itemView = inflater.inflate(R.layout.mcq_question, container, false);
         examdata=new exam();
         assert this.getArguments() != null;
-        examdata = this.getArguments().getParcelable("ex");
+        examdata = this.getArguments().getParcelable("mcq");
         question_txt = itemView.findViewById(R.id.question_txt);
         question_txt.setText(examdata.getQ_text());
         recyclerView = (RecyclerView) itemView.findViewById(R.id.recycler_view);
@@ -46,7 +44,6 @@ public class mcq_question extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         adapter2 = new choiceAdapter(examdata,mcq_question.this.getActivity());
         recyclerView.setAdapter(adapter2);
-
         return itemView;
     }}
 

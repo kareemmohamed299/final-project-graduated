@@ -15,7 +15,6 @@ public class qAdapter extends FragmentStatePagerAdapter {
         super(fm);
         this.fragmentList3 = fragmentList3;
     }
-
     @Override
     public Fragment getItem(int position) {
         return fragmentList3.get(position);

@@ -14,7 +14,7 @@ import com.example.project1.connection.exam;
 
 import java.util.ArrayList;
 
-public class AnswerSheetAdapter extends RecyclerView.Adapter<AnswerSheetAdapter.MyViewHolder> {
+/*public class AnswerSheetAdapter extends RecyclerView.Adapter<AnswerSheetAdapter.MyViewHolder> {
     ArrayList<exam> examdatas ;
     private SharedPreferences q;
     Context context;
@@ -63,4 +63,4 @@ public class AnswerSheetAdapter extends RecyclerView.Adapter<AnswerSheetAdapter.
 
 
 
-}
+}*/

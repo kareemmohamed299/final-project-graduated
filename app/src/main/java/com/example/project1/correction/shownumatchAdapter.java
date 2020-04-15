@@ -12,9 +12,6 @@ import com.example.project1.R;
 
 public class shownumatchAdapter extends RecyclerView.Adapter<shownumatchAdapter.ViewHolder> {
 
-
-
-
     class ViewHolder extends RecyclerView.ViewHolder{
         public TextView q;
         public TextView a;

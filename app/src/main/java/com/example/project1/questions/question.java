@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import com.example.project1.R;
 import com.example.project1.connection.exam;
+import com.example.project1.connection.match;
 import com.example.project1.correction.result;
 
 import android.os.CountDownTimer;
@@ -32,32 +33,25 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.view.Menu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 public class question extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private String[] qa = {"Q1",
-            "Q2",
-            "Q3",
-            "Q4",
-            "A1",
-            "A2","A3",
-            "A4"
-    };
     RecyclerView answer_sheet_view;
     TextView txt_right_answer;
     TextView txt_timer;
-    public static final int Total_Time = 1*20*1000;
+    public static final int Total_Time = 2*60*1000;
     int time_play = Total_Time;
     RecyclerView.Adapter adapter;
     public static CountDownTimer countDownTimer;
-    ArrayList<exam> examdata ;
+    ArrayList<exam> mcqdata ;
+    ArrayList<match> matchdata;
     ArrayList<String> c;
-    List<Fragment> fragmentList3 = new ArrayList<>();
+    ArrayList<Fragment> fragmentList3 = new ArrayList<>();
     ViewPager viewPager;
     TabLayout tabLayout;
-    private String student_answer;
     private SharedPreferences sa;
     @Override
     protected void onDestroy() {
@@ -72,11 +66,13 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        examdata=new ArrayList<exam>();
-        examdata=getIntent().getParcelableArrayListExtra("exam");
+        mcqdata=new ArrayList<exam>();
+        mcqdata=getIntent().getParcelableArrayListExtra("mcq");
+        matchdata=new ArrayList<match>();
+        matchdata=getIntent().getParcelableArrayListExtra("match");
         c = getIntent().getStringArrayListExtra("c");
         txt_right_answer = (TextView)findViewById(R.id.txt_question_right);
-        txt_right_answer.setText("0 / "+examdata.size());
+        txt_right_answer.setText("0 / "+(mcqdata.size()+matchdata.size()));
         txt_timer = (TextView)findViewById(R.id.txt_timer);
         txt_timer.setVisibility(View.VISIBLE);
         txt_right_answer.setVisibility(View.VISIBLE);
@@ -84,11 +80,12 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         answer_sheet_view = (RecyclerView)findViewById(R.id.grid_answer);
         answer_sheet_view.setHasFixedSize(true);
         answer_sheet_view.setLayoutManager(new GridLayoutManager(this,4));
-        adapter = new AnswerSheetAdapter(examdata,question.this);
+        //not work class AnswerSheetAdapter
+        //adapter = new AnswerSheetAdapter(examdata,question.this);
         answer_sheet_view.setAdapter(adapter);
         viewPager= (ViewPager)findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        genFragmentList();
+        genFragmentList1();
         genFragmentList2();
         qAdapter qAdapter  = new qAdapter(getSupportFragmentManager(),fragmentList3);
         viewPager.setAdapter(qAdapter);
@@ -108,11 +105,7 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
                 }
                 @Override
                 public void onFinish() {
-                    Intent myIntent = new Intent(question.this, result.class);
-                    myIntent.putParcelableArrayListExtra("exam",examdata);
-                    myIntent.putExtra("degree",correction_prosses());
-                    myIntent.putStringArrayListExtra("c",c);
-                    startActivity(myIntent);
+                    translatdata();
                     finish();
                 }
             }.start();
@@ -131,42 +124,30 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
                 }
                 @Override
                 public void onFinish() {
-                    Intent myIntent = new Intent(question.this, result.class);
-                    myIntent.putParcelableArrayListExtra("exam",examdata);
-                    myIntent.putExtra("degree",correction_prosses());
-                    myIntent.putStringArrayListExtra("c",c);
-                    startActivity(myIntent);
+                    translatdata();
                     finish();
                 }
             }.start();
         }
     }
-    private void genFragmentList(){
-
-            for(int i=0;i<(examdata.size());i++)
-            {
-                mcq_question frag = new mcq_question();
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("ex",examdata.get(i));
-                frag.setArguments(bundle);
-                fragmentList3.add(frag);
-            }
+    private void genFragmentList1() {
+        for (int i = 0; i <mcqdata.size(); i++) {
+            mcq_question frag = new mcq_question();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("mcq", mcqdata.get(i));
+            frag.setArguments(bundle);
+            fragmentList3.add(frag);
         }
-
-
-
-    private void genFragmentList2(){
-
-            for(int i=0;i<(qa.length)/2;i++) {
-
-                match_question frag2 = new match_question();
-                fragmentList3.add(frag2);
-
-            }
     }
-
-
-
+        private void genFragmentList2(){
+            for(int i=0;i<matchdata.size();i++) {
+                    match_question frag = new match_question();
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putParcelable("match", matchdata.get(i));
+                    frag.setArguments(bundle1);
+                    fragmentList3.add(frag);
+                }
+        }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.question, menu);
@@ -196,11 +177,7 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
                    @Override
                    public void onClick(DialogInterface dialog, int which) {
                        question.super.onBackPressed();
-                       Intent myIntent = new Intent(question.this, result.class);
-                       myIntent.putParcelableArrayListExtra("exam",examdata);
-                       myIntent.putExtra("degree",correction_prosses());
-                       myIntent.putStringArrayListExtra("c",c);
-                       startActivity(myIntent);
+                       translatdata();
                    }
                })
                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -212,7 +189,7 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
        AlertDialog alertDialog=builder.create();
        alertDialog.show();
     }
-    private int correction_prosses()
+   /* private int correction_prosses()
     {
         int degree=0;
         for(int i=0;i<examdata.size();i++)
@@ -224,5 +201,14 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
             }
         }
         return degree;
+    }*/
+    private void translatdata()
+    {
+        Intent myIntent = new Intent(question.this, result.class);
+        myIntent.putParcelableArrayListExtra("mcq",mcqdata);
+        myIntent.putParcelableArrayListExtra("match",matchdata);
+       // myIntent.putExtra("degree",correction_prosses());
+        myIntent.putStringArrayListExtra("c",c);
+        startActivity(myIntent);
     }
 }

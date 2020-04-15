@@ -12,14 +12,13 @@ import retrofit2.http.Query;
 public interface Api {
 
     @POST("api/student")
-
     public Call<student> getdata(@Body HashMap<Object, Object> map);
     @GET("api/course")
     public Call<cource> courcedata(@Query("code")String code);
     @GET("api/getquestion")
-    public Call<List<exam>> examdata(@Query("id_exam")String id);
-
+    public Call<List<exam>> mcq_question(@Query("id_exam")String id);
+    @GET("api/getmatchController")
+    public Call<List<match>> match_question(@Query("id_exam")String id);
     @POST("api/users")
     public Call<doctor>getdoctordata(@Body HashMap<Object,Object>map);
-
 }
