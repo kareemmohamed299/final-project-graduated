@@ -78,7 +78,7 @@ public class login_professor extends AppCompatActivity {
                     doctor1.add( doctor.getPhone());
                     doctor1.add(doctor.getPicture());
                     doctor1.add( doctor.getEmail());
-                    Toast.makeText(getApplicationContext(), doctor1.get(0), Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getApplicationContext(), doctor1.get(0), Toast.LENGTH_SHORT).show();
 
                     open();
 

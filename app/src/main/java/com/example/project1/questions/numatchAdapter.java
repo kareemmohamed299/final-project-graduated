@@ -46,11 +46,11 @@ public class numatchAdapter extends RecyclerView.Adapter<numatchAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull numatchAdapter.ViewHolder holder, int position) {
 
-            holder.q.setText(matchdata.getQuestions().get(position).getQuestion());
+            //holder.q.setText(matchdata.getQuestions().get(position).getQuestion());
             holder.a.setText(matchansewr.get(position));
     }
     @Override
     public int getItemCount() {
-        return matchdata.getQuestions().size();
+        return 0;//matchdata.getQuestions().size();
     }
 }
