@@ -1,5 +1,6 @@
 package com.example.project1.professor;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,42 +10,24 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project1.R;
+
+import com.example.project1.connection.doctor_course;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
 
 public class coursesAdapter extends RecyclerView.Adapter<coursesAdapter.ViewHolder> {
 
+    private ArrayList<doctor_course> course1 = new ArrayList<>();
+    private Context mContext;
+
+    public coursesAdapter(ArrayList<doctor_course> course, Context context)
+    {
+        this.course1 = course;
+        mContext = context;
+    }
 
 
-
-
-private String[] titles = {"comp",
-        "comp",
-        "comp",
-        "comp",
-        "comp",
-        "comp","comp",
-        "comp","comp",
-        "comp"
-        };
-
-
-private String[] titles3 = {"303",
-        "305",
-        "204",
-        "311",
-        "202",
-        "205","302",
-        "309","301",
-        "304"
-        };
-
-
-private String[] details = {"Artifical\nIntelligence",
-        "Cryptography", "Advanced\nCompiler",
-        "Image\nProcessing", "Cyper\nSecurity",
-        "Software\nEngineering", "Design\nAlgorithm",
-        "Advanced\nProgramming", "Computer\nGraphic",
-        "Multimedia"};
 
 private int[] images = { R.drawable.circle1,
         R.drawable.circle2,
@@ -61,17 +44,16 @@ private int[] images = { R.drawable.circle1,
 class ViewHolder extends RecyclerView.ViewHolder{
 
     public ImageView itemImage;
-    public TextView itemTitle;
-    public TextView itemTitle3;
-    public TextView itemDetail;
 
+    private TextView course_code, course_name,itemTitle;
     public ViewHolder(View itemView) {
+
         super(itemView);
         itemImage = (ImageView)itemView.findViewById(R.id.item_image);
         itemTitle = (TextView)itemView.findViewById(R.id.item_title);
-        itemTitle3 = (TextView)itemView.findViewById(R.id.course_code);
+        course_code = (TextView)itemView.findViewById(R.id.course_code);
 
-        itemDetail =
+        course_name =
                 (TextView)itemView.findViewById(R.id.course_name);
 
         itemView.setOnClickListener(new View.OnClickListener() {
@@ -97,15 +79,16 @@ class ViewHolder extends RecyclerView.ViewHolder{
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.itemTitle.setText(titles[i]);
-        viewHolder.itemTitle3.setText(titles3[i]);
-        viewHolder.itemDetail.setText(details[i]);
+
+        viewHolder.itemTitle.setText("comp");
+        viewHolder.course_code.setText(course1.get(i).getCode());
+        viewHolder.course_name.setText(course1.get(i).getName());
         viewHolder.itemImage.setImageResource(images[i]);
     }
 
     @Override
     public int getItemCount() {
-        return titles.length;
+        return course1.size();
     }
 }
 

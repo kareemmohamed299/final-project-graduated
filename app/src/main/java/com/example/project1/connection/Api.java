@@ -18,4 +18,8 @@ public interface Api {
     public Call<cource> courcedata(@Query("code")String code);
     @GET("api/getquestion")
     public Call<List<exam>> examdata(@Query("id_exam")String id);
+
+    @POST("api/users")
+    public Call<doctor>getdoctordata(@Body HashMap<Object,Object>map);
+
 }
