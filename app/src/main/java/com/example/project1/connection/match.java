@@ -3,32 +3,60 @@ package com.example.project1.connection;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class match   implements Parcelable {
+import java.util.ArrayList;
 
-    /**
-     * Describe the kinds of special objects contained in this Parcelable
-     * instance's marshaled representation. For example, if the object will
-     * include a file descriptor in the output of {@link #writeToParcel(Parcel, int)},
-     * the return value of this method must include the
-     * {@link #CONTENTS_FILE_DESCRIPTOR} bit.
-     *
-     * @return a bitmask indicating the set of special object types marshaled
-     * by this Parcelable object instance.
-     */
+public class match implements Parcelable {
+    private String name;
+    private String id_component;
+    ArrayList<question_match> questions=new ArrayList<question_match>();
+
+    public String getName() {
+        return name;
+    }
+
+    public String getId_component() {
+        return id_component;
+    }
+
+    public ArrayList<question_match> getQuestions() {
+        return questions;
+    }
+
+    public static Creator<match> getCREATOR() {
+        return CREATOR;
+    }
+
+    public match(Parcel in) {
+        name = in.readString();
+        id_component = in.readString();
+        questions = in.createTypedArrayList(question_match.CREATOR);
+    }
+
+    public static final Creator<match> CREATOR = new Creator<match>() {
+        @Override
+        public match createFromParcel(Parcel in) {
+            return new match(in);
+        }
+
+        @Override
+        public match[] newArray(int size) {
+            return new match[size];
+        }
+    };
+
+    public match() {
+
+    }
+
     @Override
     public int describeContents() {
         return 0;
     }
 
-    /**
-     * Flatten this object in to a Parcel.
-     *
-     * @param dest  The Parcel in which the object should be written.
-     * @param flags Additional flags about how the object should be written.
-     *              May be 0 or {@link #PARCELABLE_WRITE_RETURN_VALUE}.
-     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeString(name);
+        dest.writeString(id_component);
+        dest.writeTypedList(questions);
     }
 }
