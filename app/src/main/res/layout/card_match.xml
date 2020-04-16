@@ -15,6 +15,7 @@
         android:layout_height="30dp"
         android:paddingStart="2dp"
         android:hint="ANS"
+        android:inputType="number"
         android:textSize="12sp"
         android:textColorHint="@color/offwhite"
         android:layout_marginTop="40dp"
