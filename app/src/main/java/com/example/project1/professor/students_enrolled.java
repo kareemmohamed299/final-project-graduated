@@ -34,8 +34,6 @@ SearchView searchView;
         layoutManager = new GridLayoutManager(students_enrolled.this,1);
         recyclerView.setLayoutManager(layoutManager);
         searchView = (SearchView) findViewById(R.id.search_view);
-
-
         studentsAdapter = new studentsAdapter(student_doctor, students_enrolled.this);
         recyclerView.setAdapter(studentsAdapter );
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

@@ -19,9 +19,9 @@ public class answerAdapter extends RecyclerView.Adapter<answerAdapter.ViewHolder
     private Context context;
     ArrayList<exam> mcqdata ;
     ArrayList<match>matchdata  ;
-    private int degree;
+    private double degree;
     private SharedPreferences q;
-    public answerAdapter(ArrayList<exam> e, ArrayList<match> m, int d, Context c)
+    public answerAdapter(ArrayList<exam> e, ArrayList<match> m, double d, Context c)
     {
         this.context=c;
         this.degree=d;
