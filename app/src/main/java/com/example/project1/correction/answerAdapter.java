@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.project1.R;
 import com.example.project1.connection.exam;
 import com.example.project1.connection.match;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 public class answerAdapter extends RecyclerView.Adapter<answerAdapter.ViewHolder>  {
@@ -59,32 +58,21 @@ public class answerAdapter extends RecyclerView.Adapter<answerAdapter.ViewHolder
                     holder.card_view.setCardBackgroundColor(Color.parseColor("#F83D33"));
             }
             else
-                */holder.card_view.setCardBackgroundColor(Color.parseColor("#F83D33"));
+                holder.card_view.setCardBackgroundColor(Color.parseColor("#F83D33"));
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int k= mcqdata.size()+matchdata.size();
-                if(position <=k) {
-                    int position1=k-matchdata.size();
-                    if (position < position1) {
-                    /*Intent myIntent1 = new Intent(context, show_mcq_answer.class);
-//                    myIntent1.putExtra("ex", mcqdata.get(position));
-                    context.startActivity(myIntent1);*/
-                        Snackbar.make(v, "hhhhhhhhhhhh",
-                                Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-
-                    } else {
-                    /*Intent myIntent1 = new Intent(context, show_match_answer.class);
-                    context.startActivity(myIntent1);*/
-                        Snackbar.make(v, "uuuuuuuuuuuuuuuuuuuuuuuu",
-                                Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-
-                    }
+                if(position<=mcqdata.size()) {
+                    Intent myIntent1 = new Intent(context, show_mcq_answer.class);
+                    myIntent1.putExtra("ex", mcqdata.get(position));
+                    context.startActivity(myIntent1);
+                }
+                else {
+                    Intent myIntent1 = new Intent(context, show_match_answer.class);
+                    context.startActivity(myIntent1);
                 }
             }
-        });
+        });*/
     }
     @Override
     public int getItemCount() {

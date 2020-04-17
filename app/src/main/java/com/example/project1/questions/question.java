@@ -52,7 +52,8 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
     ArrayList<Fragment> fragmentList3 = new ArrayList<>();
     ViewPager viewPager;
     TabLayout tabLayout;
-    private SharedPreferences sa;
+    private SharedPreferences s_a_mcq,s_a_match;
+    private String student_answermcq;
     @Override
     protected void onDestroy() {
         if(countDownTimer !=null)
@@ -90,7 +91,10 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
         qAdapter qAdapter  = new qAdapter(getSupportFragmentManager(),fragmentList3);
         viewPager.setAdapter(qAdapter);
         tabLayout.setupWithViewPager(viewPager);
-        sa=getSharedPreferences("answers", Context.MODE_PRIVATE);
+        s_a_mcq=getSharedPreferences("mcq", Context.MODE_PRIVATE);
+        s_a_match=getSharedPreferences("match", Context.MODE_PRIVATE);
+        //Toast.makeText(getApplicationContext(),String.valueOf(getdegree_of_match(matchdata.get(0))),Toast.LENGTH_SHORT).show();
+
     }
     private void countTimer() {
         if(countDownTimer == null) {
@@ -157,7 +161,6 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -189,25 +192,50 @@ public class question extends AppCompatActivity implements NavigationView.OnNavi
        AlertDialog alertDialog=builder.create();
        alertDialog.show();
     }
-   /* private int correction_prosses()
+    private double correction_prosses_of_mcq()
     {
-        int degree=0;
-        for(int i=0;i<examdata.size();i++)
+        double degree=0;
+        for(int i=0;i<mcqdata.size();i++)
         {
-            student_answer=sa.getString(examdata.get(i).getId(),"No_answer");
-            if(examdata.get(i).getAnswer_text().equals(student_answer))
+            student_answermcq=s_a_mcq.getString(mcqdata.get(i).getId(),"No_answer");
+            if(mcqdata.get(i).getAnswer_text().equals(student_answermcq))
             {
-                degree+=Integer.parseInt(examdata.get(i).getDegree());
+                degree+=Double.parseDouble(mcqdata.get(i).getDegree());
             }
         }
         return degree;
-    }*/
+    }
+    private double getdegree_of_match(match m)
+    {
+        double d=Integer.parseInt(m.getDegree())/m.getQuestions().size();
+        return d;
+    }
+    private double correction_prosses_of_match()
+    {
+        double degree=correction_prosses_of_mcq();
+        if(matchdata.size()==0)
+        {
+            return degree;
+        }
+        else
+        for(int i=0;i<matchdata.size();i++)
+        {
+            for(int j=0;j<matchdata.get(i).getQuestions().size();j++) {
+
+                if (matchdata.get(i).getQuestions().get(j).getAnswer().equals(s_a_match.getString(matchdata.get(i).getQuestions().get(j).getId_match(), "0")))
+                {
+                    degree += getdegree_of_match(matchdata.get(i));
+                }
+            }
+        }
+        return degree;
+    }
     private void translatdata()
     {
         Intent myIntent = new Intent(question.this, result.class);
         myIntent.putParcelableArrayListExtra("mcq",mcqdata);
         myIntent.putParcelableArrayListExtra("match",matchdata);
-       // myIntent.putExtra("degree",correction_prosses());
+        myIntent.putExtra("degree",correction_prosses_of_match());
         myIntent.putStringArrayListExtra("c",c);
         startActivity(myIntent);
     }
