@@ -27,7 +27,7 @@ public class shownumatchAdapter extends RecyclerView.Adapter<shownumatchAdapter.
     @Override
     public shownumatchAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.show_match_answer, parent, false);
+                .inflate(R.layout.item_match_answer, parent, false);
         shownumatchAdapter.ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }

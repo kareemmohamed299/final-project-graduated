@@ -23,11 +23,18 @@ public class course_info_prof extends AppCompatActivity {
         setContentView(R.layout.course_info_prof);
         st_doctor = getIntent().getParcelableArrayListExtra("student_doctor");
         cardView1 = (CardView)findViewById(R.id.card1);
+        cardView2 = (CardView)findViewById(R.id.card2);
         cardView1.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 Intent myIntent = new Intent(course_info_prof.this, students_enrolled.class);
                 myIntent.putParcelableArrayListExtra("student_doctor" , st_doctor);
                 startActivity(myIntent);
+            }
+        });
+        cardView2.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                Intent myIntent2 = new Intent(course_info_prof.this, type_questions.class);
+                startActivity(myIntent2);
             }
         });
     }
