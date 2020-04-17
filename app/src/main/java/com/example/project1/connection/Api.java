@@ -22,7 +22,6 @@ public interface Api {
     @POST("api/users")
     public Call<doctor>getdoctordata(@Body HashMap<Object,Object>map);
     @POST("api/studentdoctor")
-    public Call<List<student_doctor>> getstudent_doctor(@Query("idexam")String idexam,
-                                                     @Query("course_code")String course_code,
+    public Call<List<student_doctor>> getstudent_doctor(@Query("course_code")String course_code,
                                                      @Query("users_id")String users_id);
 }

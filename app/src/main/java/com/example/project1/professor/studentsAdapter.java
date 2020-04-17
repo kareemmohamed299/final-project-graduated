@@ -24,10 +24,10 @@ public class studentsAdapter extends RecyclerView.Adapter<studentsAdapter.ViewHo
     private Context mContext;
     public ArrayList<student_doctor> st_doctor = new ArrayList<>();
     public ArrayList<student_doctor> search1 ;
-     private static  final String TAG = "studentsAdapter";
+
 
     public studentsAdapter(ArrayList<student_doctor> st_doctor , Context context) {
-this.mContext=context;
+        this.mContext=context;
         this.st_doctor = st_doctor;
         this.search1 = new ArrayList<>(st_doctor);
     }
@@ -99,10 +99,10 @@ this.mContext=context;
 
     @Override
     public void onBindViewHolder(studentsAdapter.ViewHolder viewHolder, int i) {
-
-        viewHolder.name.setText(st_doctor.get(i).getFname()+" "+st_doctor.get(i).getMname()+" "+st_doctor.get(i).getLname());
-        viewHolder.pro.setText(st_doctor.get(i).getName());
-        viewHolder.de.setText(st_doctor.get(i).getDegree());
+        student_doctor student_doctor1 = st_doctor.get(i);
+        viewHolder.name.setText(student_doctor1.getFname()+" "+student_doctor1.getMname()+" "+student_doctor1.getLname());
+        viewHolder.pro.setText(student_doctor1.getName());
+        viewHolder.de.setText(student_doctor1.getDegree());
     }
 
     @Override

@@ -91,7 +91,7 @@ public class coursesAdapter extends RecyclerView.Adapter<coursesAdapter.ViewHold
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                retrofit.getINSTANCE().getApi().getstudent_doctor("1", viewHolder.course_code.getText().toString(), doctor1.get(5)  ).
+                retrofit.getINSTANCE().getApi().getstudent_doctor( viewHolder.course_code.getText().toString(), doctor1.get(5)  ).
                         enqueue(new Callback<List<student_doctor>>() {
                             @Override
                             public void onResponse(Call<List<student_doctor>> call, Response<List<student_doctor>> response) {
