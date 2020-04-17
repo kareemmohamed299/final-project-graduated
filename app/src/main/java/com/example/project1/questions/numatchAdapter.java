@@ -35,7 +35,7 @@ public class numatchAdapter extends RecyclerView.Adapter<numatchAdapter.ViewHold
         public TextView q;
         public TextView a;
         public EditText e;
-        private int index;
+        private int  index;
         private String an;
         public ViewHolder(final View itemView) {
             super(itemView);
@@ -63,21 +63,26 @@ public class numatchAdapter extends RecyclerView.Adapter<numatchAdapter.ViewHold
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
             @Override
             public void afterTextChanged(Editable s) {
-                holder.index=Integer.parseInt(s.toString());
-                SharedPreferences.Editor editor= student_answer.edit();
-                /*if(holder.index==0||holder.index<matchdata.getQuestions().size()) {
-                    holder.an="no_data";
+                try {
+                    holder.index = Integer.parseInt(s.toString());
+                    SharedPreferences.Editor editor = student_answer.edit();
+                    if(holder.index==0||holder.index>matchdata.getQuestions().size()) {
+                        holder.an="no_data";
+                    }
+                    else {
+                        holder.an = matchansewr.get(holder.index - 1);
+                        editor.putString(matchdata.getQuestions().get(position).getId_match(), holder.an);
+                        editor.apply();
+                        Toast.makeText(context.getApplicationContext(), student_answer.getString("3", "a7a"), Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else*/
-                    holder.an=matchansewr.get(holder.index-1);
-                editor.putString(matchdata.getQuestions().get(position).getId_match(),holder.an);
-                editor.apply();
-
-                Toast.makeText(context.getApplicationContext(),student_answer.getString("3","a7a"),Toast.LENGTH_SHORT).show();
+                catch (NumberFormatException e) {
+                    Toast.makeText(context.getApplicationContext(),"دخل الرقم يا قلوط", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
         });
 

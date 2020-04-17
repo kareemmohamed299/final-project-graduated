@@ -92,7 +92,7 @@ public class course_info extends AppCompatActivity {
             });
         k=getSharedPreferences("kareem", Context.MODE_PRIVATE);
     }
-    @Override
+    /*@Override
     protected void onStart() {
         int x=k.getInt("data",0);
             if(x== Integer.parseInt(c.get(8)))
@@ -105,7 +105,7 @@ public class course_info extends AppCompatActivity {
                 });
             }
         super.onStart();
-    }
+    }*/
     public void examdata1()
     {
         Intent myIntent = new Intent(this, question.class);

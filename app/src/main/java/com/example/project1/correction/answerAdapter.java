@@ -20,7 +20,7 @@ public class answerAdapter extends RecyclerView.Adapter<answerAdapter.ViewHolder
     ArrayList<exam> mcqdata ;
     ArrayList<match>matchdata  ;
     private double degree;
-    private SharedPreferences q;
+    private SharedPreferences match_question,mcq_question;
     public answerAdapter(ArrayList<exam> e, ArrayList<match> m, double d, Context c)
     {
         this.context=c;
@@ -35,7 +35,8 @@ public class answerAdapter extends RecyclerView.Adapter<answerAdapter.ViewHolder
             super(itemView);
             question_num = (TextView)itemView.findViewById(R.id.question);
             card_view = (CardView) itemView.findViewById(R.id.card_view_answer);
-            q=context.getSharedPreferences("answers", Context.MODE_PRIVATE);
+            mcq_question=context.getSharedPreferences("mcq", Context.MODE_PRIVATE);
+            match_question=context.getSharedPreferences("match", Context.MODE_PRIVATE);
         }
     }
     @NonNull
@@ -49,30 +50,48 @@ public class answerAdapter extends RecyclerView.Adapter<answerAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull answerAdapter.ViewHolder holder, final int position) {
         holder.question_num.setText("Question"+(position+1));
-                /*
-
-            if (position <= mcqdata.size()) {
-                if (mcqdata.get(position).getAnswer_text().equals(q.getString(mcqdata.get(position).getId(), "k")))
-                    holder.card_view.setCardBackgroundColor(Color.parseColor("#00D152"));
-                else
-                    holder.card_view.setCardBackgroundColor(Color.parseColor("#F83D33"));
+        if (position<mcqdata.size()) {
+            if (mcqdata.get(position).getAnswer_text().equals(mcq_question.getString(mcqdata.get(position).getId(), "k")))
+                holder.card_view.setCardBackgroundColor(Color.parseColor("#00D152"));
+            else
+                holder.card_view.setCardBackgroundColor(Color.parseColor("#F83D33"));
+        }
+        if(position>=mcqdata.size()&&position<(matchdata.size()+mcqdata.size())) {
+            int c=0;
+            for(int i=0 ;i<matchdata.get(position).getQuestions().size();i++)
+            {
+                if(matchdata.get(position).getQuestions().get(i).getAnswer().equals(match_question.getString(matchdata.get(position).getQuestions().get(i).getId_match(),"NO Data")))
+                {
+                    c+=1;
+                }
+            }
+            if(c==matchdata.get(position).getQuestions().size()) {
+                holder.card_view.setCardBackgroundColor(Color.parseColor("#00D152"));
             }
             else
                 holder.card_view.setCardBackgroundColor(Color.parseColor("#F83D33"));
+        }
+        //for cpmplete question
+       /* if(position>=(mcqdata.size()+matchdata.size())&&position<(qa.length+mcqdata.size()+matchdata.size()))
+        {
+            holder.card_view.setCardBackgroundColor(Color.parseColor("#D81B60"));
+        }*/
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(position<=mcqdata.size()) {
+                if (position < mcqdata.size()) {
                     Intent myIntent1 = new Intent(context, show_mcq_answer.class);
-                    myIntent1.putExtra("ex", mcqdata.get(position));
+                    myIntent1.putExtra("mcq", mcqdata.get(position));
                     context.startActivity(myIntent1);
                 }
-                else {
+                if (position >= mcqdata.size() && position < (matchdata.size() + mcqdata.size())) {
                     Intent myIntent1 = new Intent(context, show_match_answer.class);
+                    myIntent1.putExtra(",match", matchdata.get(position));
                     context.startActivity(myIntent1);
                 }
             }
-        });*/
+
+        });
     }
     @Override
     public int getItemCount() {

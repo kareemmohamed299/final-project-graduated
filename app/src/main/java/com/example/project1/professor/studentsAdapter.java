@@ -34,8 +34,6 @@ public class studentsAdapter extends RecyclerView.Adapter<studentsAdapter.ViewHo
     {
         return examplefilter;
     }
-
-
     private  Filter examplefilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {

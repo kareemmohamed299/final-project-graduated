@@ -22,7 +22,6 @@ public class shownumatchAdapter extends RecyclerView.Adapter<shownumatchAdapter.
 
         }
     }
-
     @NonNull
     @Override
     public shownumatchAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,8 +33,6 @@ public class shownumatchAdapter extends RecyclerView.Adapter<shownumatchAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull shownumatchAdapter.ViewHolder holder, int position) {
-
-
     }
 
     @Override

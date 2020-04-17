@@ -28,8 +28,8 @@ import retrofit2.Response;
 
 public class coursesAdapter extends RecyclerView.Adapter<coursesAdapter.ViewHolder> {
 
-    private ArrayList<doctor_course> course1 = new ArrayList<doctor_course>();
-    private ArrayList<String> doctor1 = new ArrayList<String>();
+    private ArrayList<doctor_course> course1;
+    private ArrayList<String> doctor1;
     private ArrayList<student_doctor> st_doctor = new ArrayList<student_doctor>();
     private Context mContext;
 
@@ -119,8 +119,6 @@ public class coursesAdapter extends RecyclerView.Adapter<coursesAdapter.ViewHold
     public int getItemCount() {
         return course1.size();
     }
-
-
     public void go() {
         Intent myIntent = new Intent(mContext, course_info_prof.class);
         myIntent.putParcelableArrayListExtra("student_doctor",st_doctor);

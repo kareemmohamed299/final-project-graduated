@@ -25,7 +25,7 @@ public class show_mcq_answer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_mcq_answer);
         answer=getSharedPreferences("mcq", Context.MODE_PRIVATE);
-        examdata=getIntent().getParcelableExtra("ex");
+        examdata=getIntent().getParcelableExtra("maq");
         card_view1 = (CardView)findViewById(R.id.cardview_cho1);
         card_view2 = (CardView)findViewById(R.id.cardview_cho2);
         q=(TextView)findViewById(R.id.question_txt);
