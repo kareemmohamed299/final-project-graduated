@@ -42,10 +42,10 @@ public class match_question extends Fragment {
     {
         ArrayList<String>array=new ArrayList<String>();
         Random rand = new Random();
-       /* for(int i=0;i<matchdata.getQuestions().size();i++)
+        for(int i=0;i<matchdata.getQuestions().size();i++)
         {
             array.add(matchdata.getQuestions().get(i).getAnswer());
-        }*/
+        }
         for (int i =0;i<array.size();i++)
         {
             int index = rand.nextInt(array.size());

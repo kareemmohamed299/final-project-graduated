@@ -8,20 +8,25 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.project1.R;
+import com.example.project1.connection.student_doctor;
+
+import java.util.ArrayList;
 
 public class course_info_prof extends AppCompatActivity {
 
     CardView cardView1 , cardView2 , cardView3;
+    public ArrayList<student_doctor> st_doctor = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_info_prof);
-
+        st_doctor = getIntent().getParcelableArrayListExtra("student_doctor");
         cardView1 = (CardView)findViewById(R.id.card1);
         cardView1.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 Intent myIntent = new Intent(course_info_prof.this, students_enrolled.class);
+                myIntent.putParcelableArrayListExtra("student_doctor" , st_doctor);
                 startActivity(myIntent);
             }
         });

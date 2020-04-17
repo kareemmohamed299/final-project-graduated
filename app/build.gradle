@@ -61,4 +61,5 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     // validation
     implementation 'com.basgeekball:awesome-validation:4.2'
+
 }

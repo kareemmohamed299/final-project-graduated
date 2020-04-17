@@ -6,30 +6,78 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project1.R;
+import com.example.project1.connection.student_doctor;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class studentsAdapter extends RecyclerView.Adapter<studentsAdapter.ViewHolder> {
+public class studentsAdapter extends RecyclerView.Adapter<studentsAdapter.ViewHolder> implements Filterable {
+    private Context mContext;
+    public ArrayList<student_doctor> st_doctor = new ArrayList<>();
+    public ArrayList<student_doctor> search1 ;
+     private static  final String TAG = "studentsAdapter";
+
+    public studentsAdapter(ArrayList<student_doctor> st_doctor , Context context) {
+this.mContext=context;
+        this.st_doctor = st_doctor;
+        this.search1 = new ArrayList<>(st_doctor);
+    }
+    @Override
+    public Filter getFilter()
+    {
+        return examplefilter;
+    }
 
 
+    private  Filter examplefilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<student_doctor> filteredlist = new ArrayList<>() ;
+            if(constraint == null || constraint.length() ==0  )
+            {
+                filteredlist.addAll(search1);
+            }
+            else
+            {
+                String filterpattern =  constraint.toString().toLowerCase().trim();
+                for(student_doctor item :search1)
+                {
+                    if((item.getFname().toLowerCase().contains(filterpattern))||(item.getMname().toLowerCase().contains(filterpattern))
+                    ||(item.getLname().toLowerCase().contains(filterpattern)))
+                    {
+                        filteredlist.add(item);
+                    }
+
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredlist;
+            return  results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            st_doctor.clear();
+            st_doctor.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
 
-    private String[] names= { "Mohamed Ashraf Mohamed","Kareem Mohamed Mostafa","Mahmoud Essam Mohamed","Youssef Mohamed Fawzy","Mohamed Ibrahim Ahmed"
-    ,"Hussam Abd Elfatah Mohamed","Toni Mohamed Mostafa","Khaled Essam Mohamed","Abanob Mohamed Fawzy","Mohamed Ibrahim Ahmed"};
-
-    private String[] prog= { "Computer Science","Math/CS","Stat/CS","Math/CS","Stat/CS"
-            ,"Computer Science","Computer Science","Math/CS","Stat/CS","Stat/CS"};
-    private String[] deg= { "10/10","5/10","0/10","3/10","1/10"
-            ,"8/10","6/10","4/10","2/10","5/10"};
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
         public TextView name ,pro ,de;
+      //  public SearchView search;
 
 
         public ViewHolder(View itemView) {
@@ -37,6 +85,7 @@ public class studentsAdapter extends RecyclerView.Adapter<studentsAdapter.ViewHo
             name = (TextView)itemView.findViewById(R.id.txt_name);
              pro = (TextView)itemView.findViewById(R.id.txt_program);
             de = (TextView)itemView.findViewById(R.id.txt_degree);
+           // search = (SearchView)itemView.findViewById(R.id.search_view);
         }
     }
 
@@ -51,15 +100,17 @@ public class studentsAdapter extends RecyclerView.Adapter<studentsAdapter.ViewHo
     @Override
     public void onBindViewHolder(studentsAdapter.ViewHolder viewHolder, int i) {
 
-        viewHolder.name.setText(names[i]);
-        viewHolder.pro.setText(prog[i]);
-        viewHolder.de.setText(deg[i]);
-
+        viewHolder.name.setText(st_doctor.get(i).getFname()+" "+st_doctor.get(i).getMname()+" "+st_doctor.get(i).getLname());
+        viewHolder.pro.setText(st_doctor.get(i).getName());
+        viewHolder.de.setText(st_doctor.get(i).getDegree());
     }
 
     @Override
     public int getItemCount() {
-        return names.length;
+        return st_doctor.size();
     }
+
+
 }
+
 
