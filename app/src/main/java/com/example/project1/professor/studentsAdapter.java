@@ -24,11 +24,9 @@ public class studentsAdapter extends RecyclerView.Adapter<studentsAdapter.ViewHo
     private Context mContext;
     public ArrayList<student_doctor> st_doctor = new ArrayList<>();
     public ArrayList<student_doctor> search1 ;
-
-
-    public studentsAdapter(ArrayList<student_doctor> st_doctor , Context context) {
+    public studentsAdapter(ArrayList<student_doctor> st_doctor1 , Context context) {
         this.mContext=context;
-        this.st_doctor = st_doctor;
+        this.st_doctor = st_doctor1;
         this.search1 = new ArrayList<>(st_doctor);
     }
     @Override
@@ -36,8 +34,6 @@ public class studentsAdapter extends RecyclerView.Adapter<studentsAdapter.ViewHo
     {
         return examplefilter;
     }
-
-
     private  Filter examplefilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
@@ -88,7 +84,6 @@ public class studentsAdapter extends RecyclerView.Adapter<studentsAdapter.ViewHo
            // search = (SearchView)itemView.findViewById(R.id.search_view);
         }
     }
-
     @Override
     public studentsAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
@@ -96,7 +91,6 @@ public class studentsAdapter extends RecyclerView.Adapter<studentsAdapter.ViewHo
         studentsAdapter.ViewHolder viewHolder = new studentsAdapter.ViewHolder(v);
         return viewHolder;
     }
-
     @Override
     public void onBindViewHolder(studentsAdapter.ViewHolder viewHolder, int i) {
         student_doctor student_doctor1 = st_doctor.get(i);
@@ -104,7 +98,6 @@ public class studentsAdapter extends RecyclerView.Adapter<studentsAdapter.ViewHo
         viewHolder.pro.setText(student_doctor1.getName());
         viewHolder.de.setText(student_doctor1.getDegree());
     }
-
     @Override
     public int getItemCount() {
         return st_doctor.size();

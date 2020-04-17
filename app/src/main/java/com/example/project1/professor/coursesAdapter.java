@@ -28,9 +28,9 @@ import retrofit2.Response;
 
 public class coursesAdapter extends RecyclerView.Adapter<coursesAdapter.ViewHolder> {
 
-    private ArrayList<doctor_course> course1 = new ArrayList<>();
-    private ArrayList<String> doctor1 = new ArrayList<>();
-    private ArrayList<student_doctor> st_doctor = new ArrayList<>();
+    private ArrayList<doctor_course> course1;
+    private ArrayList<String> doctor1;
+    private ArrayList<student_doctor> st_doctor = new ArrayList<student_doctor>();
     private Context mContext;
 
     public coursesAdapter(ArrayList<doctor_course> course, ArrayList<String> doctor, Context context) {
@@ -39,8 +39,6 @@ public class coursesAdapter extends RecyclerView.Adapter<coursesAdapter.ViewHold
         this.doctor1 = doctor;
 
     }
-
-
     private int[] images = {R.drawable.circle1,
             R.drawable.circle2,
             R.drawable.circle3,
@@ -65,9 +63,7 @@ public class coursesAdapter extends RecyclerView.Adapter<coursesAdapter.ViewHold
             itemImage = (ImageView) itemView.findViewById(R.id.item_image);
             itemTitle = (TextView) itemView.findViewById(R.id.item_title);
             course_code = (TextView) itemView.findViewById(R.id.course_code);
-
-            course_name =
-                    (TextView) itemView.findViewById(R.id.course_name);
+            course_name = (TextView) itemView.findViewById(R.id.course_name);
 
 
         }
@@ -101,7 +97,6 @@ public class coursesAdapter extends RecyclerView.Adapter<coursesAdapter.ViewHold
                                     {
                                         st_doctor.add(i, response.body().get(i));
                                     }
-
                                     go();
                                 }
                                 else
@@ -124,8 +119,6 @@ public class coursesAdapter extends RecyclerView.Adapter<coursesAdapter.ViewHold
     public int getItemCount() {
         return course1.size();
     }
-
-
     public void go() {
         Intent myIntent = new Intent(mContext, course_info_prof.class);
         myIntent.putParcelableArrayListExtra("student_doctor",st_doctor);

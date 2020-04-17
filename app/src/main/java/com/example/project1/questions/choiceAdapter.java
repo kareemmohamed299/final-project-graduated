@@ -36,7 +36,7 @@ public class choiceAdapter extends RecyclerView.Adapter<choiceAdapter.ViewHolder
             super(itemView);
             choice = (TextView)itemView.findViewById(R.id.choice_text);
             card_view = (CardView) itemView.findViewById(R.id.card_view);
-            answer=context.getSharedPreferences("answers", Context.MODE_PRIVATE);
+            answer=context.getSharedPreferences("mcq", Context.MODE_PRIVATE);
         }
     }
     @Override
@@ -46,12 +46,9 @@ public class choiceAdapter extends RecyclerView.Adapter<choiceAdapter.ViewHolder
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
-
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
         viewHolder.choice.setText(examdata.getChoices().get(i));
-
-
         viewHolder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

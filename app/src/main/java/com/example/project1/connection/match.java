@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class match implements Parcelable {
     private String name;
     private String id_component;
+    private String degree;
     ArrayList<question_match> questions=new ArrayList<question_match>();
-
     public String getName() {
         return name;
     }
@@ -22,6 +22,10 @@ public class match implements Parcelable {
         return questions;
     }
 
+    public String getDegree() {
+        return degree;
+    }
+
     public static Creator<match> getCREATOR() {
         return CREATOR;
     }
@@ -29,6 +33,7 @@ public class match implements Parcelable {
     public match(Parcel in) {
         name = in.readString();
         id_component = in.readString();
+        degree=in.readString();
         questions = in.createTypedArrayList(question_match.CREATOR);
     }
 
@@ -57,6 +62,7 @@ public class match implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(id_component);
+        dest.writeString(degree);
         dest.writeTypedList(questions);
     }
 }
