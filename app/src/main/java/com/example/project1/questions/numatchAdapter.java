@@ -32,8 +32,7 @@ public class numatchAdapter extends RecyclerView.Adapter<numatchAdapter.ViewHold
         this.context=c;
     }
     class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView q;
-        public TextView a;
+        public TextView q,a,n;
         public EditText e;
         private int  index;
         private String an;
@@ -41,6 +40,7 @@ public class numatchAdapter extends RecyclerView.Adapter<numatchAdapter.ViewHold
             super(itemView);
             q = (TextView)itemView.findViewById(R.id.qmatch_text);
             a = (TextView)itemView.findViewById(R.id.amatch_text);
+            n=  (TextView)itemView.findViewById(R.id.qnum);
             student_answer=context.getSharedPreferences("match", Context.MODE_PRIVATE);
             e=(EditText)itemView.findViewById(R.id.text_stuans);
         }
@@ -57,6 +57,7 @@ public class numatchAdapter extends RecyclerView.Adapter<numatchAdapter.ViewHold
     public void onBindViewHolder(@NonNull final numatchAdapter.ViewHolder holder, final int position) {
         holder.q.setText(matchdata.getQuestions().get(position).getQuestion());
         holder.a.setText(matchansewr.get(position));
+        holder.n.setText(String.valueOf(position+1));
         holder.e.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -89,6 +90,6 @@ public class numatchAdapter extends RecyclerView.Adapter<numatchAdapter.ViewHold
     }
     @Override
     public int getItemCount() {
-       return 5;
+       return matchdata.getQuestions().size();
     }
 }
