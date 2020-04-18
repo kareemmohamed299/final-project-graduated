@@ -80,7 +80,6 @@ public RecyclerAdapter(ArrayList<cource> course, Context context)
         viewHolder.course_code.setText(cource1.getCode());
         viewHolder.course_name.setText(cource1.getName());
         viewHolder.itemImage.setImageResource(images[i]);
-
         viewHolder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {

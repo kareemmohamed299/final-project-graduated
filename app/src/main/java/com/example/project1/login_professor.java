@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 
+import com.example.project1.connection.cource;
 import com.example.project1.connection.doctor;
 import com.example.project1.connection.doctor_course;
 import com.example.project1.connection.retrofit;
@@ -29,7 +30,7 @@ public class login_professor extends AppCompatActivity {
 
     private ImageButton imageButton;
     private Button button ;
-    private ArrayList<doctor_course> course ;
+    private ArrayList<cource> coursedata ;
     private ArrayList<String >doctor1;
     String t1,t2;
     HashMap<Object,Object> map=new HashMap<>();
@@ -68,7 +69,7 @@ public class login_professor extends AppCompatActivity {
                     doctor doctor = response.body();
                     doctor1 = new ArrayList<String>();
                     assert doctor != null;
-                    course = doctor.getCourse();
+                    coursedata = doctor.getCourse();
                     doctor1.add(doctor.getFname());
                     doctor1.add(doctor.getMname());
                     doctor1.add(doctor.getLname());
@@ -97,16 +98,14 @@ public class login_professor extends AppCompatActivity {
             }
 
         });
-
     }
 public void open()
         {
             Intent myIntent1 = new Intent(this, third_prof.class);
-            myIntent1.putParcelableArrayListExtra("course",course);
+            myIntent1.putParcelableArrayListExtra("course",coursedata);
             myIntent1.putStringArrayListExtra("doctor" , doctor1);
             startActivity(myIntent1);
         }
-
     public void openpage2(){
         Intent myIntent = new Intent(this, second.class);
         startActivity(myIntent);

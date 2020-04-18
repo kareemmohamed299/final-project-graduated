@@ -19,8 +19,6 @@ public class profile_prof extends Fragment {
     public profile_prof() {
         // Required empty public constructor
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,12 +34,9 @@ public class profile_prof extends Fragment {
         prog_name = (TextView)v.findViewById(R.id.prog_name1);
         prog_name1 = (TextView)v.findViewById(R.id.prog_name2);
         department1 = (TextView)v.findViewById(R.id.department);
-
         name2 = (TextView)v.findViewById(R.id.name2);
         name2.setText(doctor.get(0)+" "+doctor.get(1)+ " "+doctor.get(2));
         name1.setText( doctor.get(0)+" "+doctor.get(1));
-
-
         department1.setText(doctor.get(3));
         prog_name.setText(doctor.get(4));
         prog_name1.setText(doctor.get(4));

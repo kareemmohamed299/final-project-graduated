@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.project1.R;
+import com.example.project1.connection.cource;
 import com.example.project1.connection.doctor_course;
 import com.example.project1.courses_demo;
 import com.example.project1.profile;
@@ -24,9 +25,8 @@ public class third_prof extends AppCompatActivity implements BottomNavigationVie
 
     private static final String TAG = "third";
     BottomNavigationView bottomNavigationView;
-    private ArrayList<doctor_course> course ;
+    private ArrayList<cource> course ;
     private ArrayList<String >doctor1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +52,7 @@ public class third_prof extends AppCompatActivity implements BottomNavigationVie
         final profile_prof prof = new profile_prof();
         final courses_demo_prof courses_demo = new courses_demo_prof();
         doctor1 = new ArrayList<String>();
-        course = new ArrayList<doctor_course>();
+        course = new ArrayList<cource>();
         course = getIntent().getParcelableArrayListExtra("course");
         doctor1 = getIntent().getStringArrayListExtra("doctor");
         Bundle bundle = new Bundle();

@@ -7,39 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.project1.R;
-
 import com.example.project1.connection.cource;
-import com.example.project1.connection.doctor_course;
-import com.example.project1.connection.questiondoctor;
-import com.example.project1.connection.retrofit;
-import com.example.project1.connection.student_doctor;
-import com.google.android.material.snackbar.Snackbar;
-
 import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class coursesAdapter extends RecyclerView.Adapter<coursesAdapter.ViewHolder> {
-
-    private ArrayList<doctor_course> course1;
+    private ArrayList<cource> course1;
     private ArrayList<String> doctor1;
-    private ArrayList<student_doctor> st_doctor = new ArrayList<student_doctor>();
-    private ArrayList<questiondoctor>qes_doctor = new ArrayList<>();
     private Context mContext;
-
-    public coursesAdapter(ArrayList<doctor_course> course, ArrayList<String> doctor, Context context) {
+    public coursesAdapter(ArrayList<cource> course, ArrayList<String> doctor, Context context) {
         this.course1 = course;
         mContext = context;
         this.doctor1 = doctor;
-
     }
     private int[] images = {R.drawable.circle1,
             R.drawable.circle2,
@@ -52,25 +31,17 @@ public class coursesAdapter extends RecyclerView.Adapter<coursesAdapter.ViewHold
             R.drawable.circle4,
             R.drawable.circle5
     };
-
     class ViewHolder extends RecyclerView.ViewHolder {
-
         public ImageView itemImage;
-
         private TextView course_code, course_name, itemTitle;
-
         public ViewHolder(View itemView) {
-
             super(itemView);
             itemImage = (ImageView) itemView.findViewById(R.id.item_image);
             itemTitle = (TextView) itemView.findViewById(R.id.item_title);
             course_code = (TextView) itemView.findViewById(R.id.course_code);
             course_name = (TextView) itemView.findViewById(R.id.course_name);
-
-
         }
     }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
@@ -78,9 +49,8 @@ public class coursesAdapter extends RecyclerView.Adapter<coursesAdapter.ViewHold
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
-
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
 
         viewHolder.itemTitle.setText("comp");
         viewHolder.course_code.setText(course1.get(i).getCode());
@@ -89,7 +59,11 @@ public class coursesAdapter extends RecyclerView.Adapter<coursesAdapter.ViewHold
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                retrofit.getINSTANCE().getApi().getstudent_doctor( viewHolder.course_code.getText().toString(), doctor1.get(5)  ).
+                Intent myIntent = new Intent(mContext, course_info_prof.class);
+                myIntent.putExtra("coursedata",course1.get(i));
+                myIntent.putStringArrayListExtra("doctordata",doctor1);
+                mContext.startActivity(myIntent);
+                /*retrofit.getINSTANCE().getApi().getstudent_doctor( viewHolder.course_code.getText().toString(), doctor1.get(5)  ).
                         enqueue(new Callback<List<student_doctor>>() {
                             @Override
                             public void onResponse(Call<List<student_doctor>> call, Response<List<student_doctor>> response) {
@@ -139,20 +113,13 @@ public class coursesAdapter extends RecyclerView.Adapter<coursesAdapter.ViewHold
                                 Snackbar.make(v, t.getMessage() ,Snackbar.LENGTH_LONG)
                                         .setAction("Action", null).show();
                             }
-                        });
+                        });*/
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return course1.size();
-    }
-    public void go() {
-        Intent myIntent = new Intent(mContext, course_info_prof.class);
-        myIntent.putParcelableArrayListExtra("student_doctor",st_doctor);
-        myIntent.putParcelableArrayListExtra("question_doctor" , qes_doctor);
-        mContext.startActivity(myIntent);
     }
 }
 

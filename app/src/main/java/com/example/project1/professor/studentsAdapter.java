@@ -22,7 +22,7 @@ import java.util.List;
 
 public class studentsAdapter extends RecyclerView.Adapter<studentsAdapter.ViewHolder> implements Filterable {
     private Context mContext;
-    public ArrayList<student_doctor> st_doctor = new ArrayList<>();
+    public ArrayList<student_doctor> st_doctor ;
     public ArrayList<student_doctor> search1 ;
     public studentsAdapter(ArrayList<student_doctor> st_doctor1 , Context context) {
         this.mContext=context;

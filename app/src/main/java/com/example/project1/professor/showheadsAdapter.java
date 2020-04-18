@@ -23,11 +23,9 @@ import java.util.List;
 
 public class showheadsAdapter  extends RecyclerView.Adapter<showheadsAdapter.ViewHolder> implements Filterable {
 
-    Context mcontext;
-
     private ArrayList<questiondoctor> qes_doctor = new ArrayList<>();
     private ArrayList<questiondoctor> search1 ;
-    questiondoctor questiondoctor;
+    //questiondoctor questiondoctor;
     show_heads show_heads;
     public  showheadsAdapter( ArrayList<questiondoctor>qes_doctor1 ,show_heads show_heads1)
     {
@@ -64,7 +62,6 @@ public class showheadsAdapter  extends RecyclerView.Adapter<showheadsAdapter.Vie
             results.values = filteredlist;
             return  results;
         }
-
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             qes_doctor.clear();
@@ -72,7 +69,6 @@ public class showheadsAdapter  extends RecyclerView.Adapter<showheadsAdapter.Vie
             notifyDataSetChanged();
         }
     };
-
     public void remove(ArrayList<questiondoctor> selection_qes_doctor) {
         for(int i=0;i<selection_qes_doctor.size() ; i++)
         {
@@ -81,8 +77,6 @@ public class showheadsAdapter  extends RecyclerView.Adapter<showheadsAdapter.Vie
         }
 
     }
-
-
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             TextView head ;
             CheckBox checkBox;
@@ -97,15 +91,12 @@ public class showheadsAdapter  extends RecyclerView.Adapter<showheadsAdapter.Vie
             view=itemView;
             view.setOnLongClickListener(show_heads);
             checkBox.setOnClickListener(this);
-
         }
         @Override
         public void onClick(View v) {
             show_heads.MakeSelection(v,getAdapterPosition());
         }
     }
-
-
     @NonNull
     @Override
     public showheadsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -114,19 +105,14 @@ public class showheadsAdapter  extends RecyclerView.Adapter<showheadsAdapter.Vie
         showheadsAdapter.ViewHolder viewHolder = new ViewHolder(v , show_heads);
         return viewHolder;
     }
-
     @Override
-    public void onBindViewHolder(@NonNull showheadsAdapter.ViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull showheadsAdapter.ViewHolder holder, final int position) {
         holder.head.setText(qes_doctor.get(position).getQ_text());
-
-
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                Intent myIntent = new Intent(mcontext, show_mcq_questions_prof.class);
-                //myIntent.putParcelableArrayListExtra("question_doctor" , qes_doctor);
-                myIntent.putExtra("question_doctor" , questiondoctor);
-                mcontext.startActivity(myIntent);
+                Intent myIntent = new Intent(show_heads, show_mcq_questions_prof.class);
+                myIntent.putExtra("question_doctor" ,qes_doctor.get(position));
+                show_heads.startActivity(myIntent);
             }
         });
         if(show_heads.iscontexualmodeenable)

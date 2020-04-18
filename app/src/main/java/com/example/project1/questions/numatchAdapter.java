@@ -89,6 +89,6 @@ public class numatchAdapter extends RecyclerView.Adapter<numatchAdapter.ViewHold
     }
     @Override
     public int getItemCount() {
-       return matchdata.getQuestions().size();
+       return 5;
     }
 }

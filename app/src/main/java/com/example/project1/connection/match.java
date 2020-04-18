@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 public class match implements Parcelable {
+
     private String name;
     private String id_component;
     private String degree;
@@ -13,7 +14,9 @@ public class match implements Parcelable {
     public String getName() {
         return name;
     }
-
+    public String getDegree() {
+        return degree;
+    }
     public String getId_component() {
         return id_component;
     }
@@ -21,11 +24,6 @@ public class match implements Parcelable {
     public ArrayList<question_match> getQuestions() {
         return questions;
     }
-
-    public String getDegree() {
-        return degree;
-    }
-
     public static Creator<match> getCREATOR() {
         return CREATOR;
     }

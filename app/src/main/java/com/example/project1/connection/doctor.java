@@ -13,8 +13,7 @@ public class doctor {
     private String picture;
     private String program_name;
     private String department_name;
-    ArrayList<doctor_course> course = new ArrayList < doctor_course> ();
-
+    ArrayList<cource> course = new ArrayList < cource> ();
     public String getId() {
         return id;
     }
@@ -95,11 +94,10 @@ public class doctor {
         this.department_name = department_name;
     }
 
-    public ArrayList<doctor_course> getCourse() {
+    public ArrayList<cource> getCourse() {
         return course;
     }
-
-    public void setCourse(ArrayList<doctor_course> course) {
+    public void setCourse(ArrayList<cource> course) {
         this.course = course;
     }
 }

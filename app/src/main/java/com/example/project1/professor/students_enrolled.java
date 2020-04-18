@@ -8,20 +8,18 @@ import android.os.Bundle;
 import android.widget.SearchView;
 
 import com.example.project1.R;
+import com.example.project1.connection.student_doctor;
 
 import java.util.ArrayList;
 
 public class students_enrolled extends AppCompatActivity {
-
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     studentsAdapter studentsAdapter;
-    public ArrayList<com.example.project1.connection.student_doctor> student_doctor = new ArrayList<>();
+    public ArrayList<student_doctor> student_doctor ;
 SearchView searchView;
-
     public students_enrolled() {
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

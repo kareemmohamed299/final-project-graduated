@@ -3,6 +3,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class answerAdapter extends RecyclerView.Adapter<answerAdapter.ViewHolder
     class ViewHolder extends RecyclerView.ViewHolder{
         private TextView question_num;
         private CardView card_view;
+        private int i;
         public ViewHolder(View itemView) {
             super(itemView);
             question_num = (TextView)itemView.findViewById(R.id.question);
@@ -57,10 +59,10 @@ public class answerAdapter extends RecyclerView.Adapter<answerAdapter.ViewHolder
                 holder.card_view.setCardBackgroundColor(Color.parseColor("#F83D33"));
         }
         if(position>=mcqdata.size()&&position<(matchdata.size()+mcqdata.size())) {
-            int c=0;
-            for(int i=0 ;i<matchdata.get(position).getQuestions().size();i++)
+           /* int c=0;
+            for(holder.i=0 ;holder.i<matchdata.get(position).getQuestions().size();holder.i++)
             {
-                if(matchdata.get(position).getQuestions().get(i).getAnswer().equals(match_question.getString(matchdata.get(position).getQuestions().get(i).getId_match(),"NO Data")))
+                if(matchdata.get(position).getQuestions().get(holder.i).getAnswer().equals(match_question.getString(matchdata.get(position).getQuestions().get(holder.i).getId_match(),"NO Data")))
                 {
                     c+=1;
                 }
@@ -68,8 +70,8 @@ public class answerAdapter extends RecyclerView.Adapter<answerAdapter.ViewHolder
             if(c==matchdata.get(position).getQuestions().size()) {
                 holder.card_view.setCardBackgroundColor(Color.parseColor("#00D152"));
             }
-            else
-                holder.card_view.setCardBackgroundColor(Color.parseColor("#F83D33"));
+            else*/
+                holder.card_view.setCardBackgroundColor(Color.parseColor("#D68C09"));
         }
         //for cpmplete question
        /* if(position>=(mcqdata.size()+matchdata.size())&&position<(qa.length+mcqdata.size()+matchdata.size()))
@@ -85,9 +87,10 @@ public class answerAdapter extends RecyclerView.Adapter<answerAdapter.ViewHolder
                     context.startActivity(myIntent1);
                 }
                 if (position >= mcqdata.size() && position < (matchdata.size() + mcqdata.size())) {
-                    Intent myIntent1 = new Intent(context, show_match_answer.class);
-                    myIntent1.putExtra(",match", matchdata.get(position));
-                    context.startActivity(myIntent1);
+                    Intent myIntent = new Intent(context, show_match_answer.class);
+                    myIntent.putExtra(",match", matchdata.get(position-mcqdata.size()));
+                    Log.d("kkkkkkkk",matchdata.get(position-mcqdata.size()).getId_component());
+                    context.startActivity(myIntent);
                 }
             }
 
