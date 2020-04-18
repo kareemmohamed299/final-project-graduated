@@ -2,7 +2,6 @@ package com.example.project1.professor;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 
@@ -26,12 +26,12 @@ public class show_heads extends AppCompatActivity implements View.OnLongClickLis
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     showheadsAdapter showheadsAdapter;
-    private ArrayList<questiondoctor> qes_doctor ;
+    private ArrayList<questiondoctor> qes_doctor = new ArrayList<>();
     private ArrayList<questiondoctor> selection_qes_doctor = new ArrayList<>();
     private Toolbar toolbar;
-    SearchView searchView;
     int counter =0;
     TextView item_counter;
+    SearchView searchView;
      public  boolean iscontexualmodeenable=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +40,17 @@ public class show_heads extends AppCompatActivity implements View.OnLongClickLis
         toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
        // getSupportActionBar().setTitle("MY APP");
-        qes_doctor=new ArrayList<questiondoctor>();
         qes_doctor = getIntent().getParcelableArrayListExtra("question_doctor");
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         layoutManager = new GridLayoutManager(show_heads.this,1);
         recyclerView.setLayoutManager(layoutManager);
-      //  searchView = (SearchView) findViewById(R.id.search_view1);
+        searchView = (SearchView) findViewById(R.id.search_view5);
         item_counter = findViewById(R.id.item_counter);
         item_counter.setText("My App");
         showheadsAdapter = new showheadsAdapter(qes_doctor,show_heads.this);
         recyclerView.setAdapter(showheadsAdapter);
-        /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -61,12 +61,12 @@ public class show_heads extends AppCompatActivity implements View.OnLongClickLis
                 showheadsAdapter.getFilter().filter(newText);
                 return false;
             }
-        });*/
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.contexual_menu,menu);
+        getMenuInflater().inflate(R.menu.normal_menu,menu);
 
         return true;
     }
@@ -77,10 +77,11 @@ public class show_heads extends AppCompatActivity implements View.OnLongClickLis
         iscontexualmodeenable = true;
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.contexual_menu);
+        getSupportActionBar().setTitle("0 item selected");
         toolbar.setBackgroundColor(Color.GREEN);
         showheadsAdapter.notifyDataSetChanged();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        return  true;
+        return true;
     }
 
     public void MakeSelection(View v , int adapterposition) {
@@ -99,8 +100,9 @@ public class show_heads extends AppCompatActivity implements View.OnLongClickLis
     }
     public  void updatecounter()
     {
-        item_counter.setText(counter+" itemselected");
+        item_counter.setText(counter+" item selected");
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.delete)
@@ -115,11 +117,12 @@ public class show_heads extends AppCompatActivity implements View.OnLongClickLis
         }*/
         return true;
     }
+
     private void RemoveContexualActionMode() {
         iscontexualmodeenable = false;
         item_counter.setText("My App");
         toolbar.getMenu().clear();
-        toolbar.inflateMenu(R.menu.contexual_menu);
+        toolbar.inflateMenu(R.menu.normal_menu);
         counter = 0;
         selection_qes_doctor.clear();
         showheadsAdapter.notifyDataSetChanged();

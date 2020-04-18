@@ -25,7 +25,7 @@
         card_view:cardBackgroundColor="@color/white"
         >
         <SearchView
-            android:id="@+id/search_view"
+            android:id="@+id/search_view5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"

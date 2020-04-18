@@ -115,7 +115,7 @@ public class showheadsAdapter  extends RecyclerView.Adapter<showheadsAdapter.Vie
                 show_heads.startActivity(myIntent);
             }
         });
-        if(show_heads.iscontexualmodeenable)
+        if(!show_heads.iscontexualmodeenable)
         {
             holder.checkBox.setVisibility(View.GONE);
         }
