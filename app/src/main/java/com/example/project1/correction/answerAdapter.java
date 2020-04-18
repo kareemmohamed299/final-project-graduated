@@ -59,19 +59,19 @@ public class answerAdapter extends RecyclerView.Adapter<answerAdapter.ViewHolder
                 holder.card_view.setCardBackgroundColor(Color.parseColor("#F83D33"));
         }
         if(position>=mcqdata.size()&&position<(matchdata.size()+mcqdata.size())) {
-           /* int c=0;
-            for(holder.i=0 ;holder.i<matchdata.get(position).getQuestions().size();holder.i++)
+            int c=0;
+            for(holder.i=0 ;holder.i<matchdata.get(position-mcqdata.size()).getQuestions().size();holder.i++)
             {
-                if(matchdata.get(position).getQuestions().get(holder.i).getAnswer().equals(match_question.getString(matchdata.get(position).getQuestions().get(holder.i).getId_match(),"NO Data")))
+                if(matchdata.get(position-mcqdata.size()).getQuestions().get(holder.i).getAnswer().equals(match_question.getString(matchdata.get(position-mcqdata.size()).getQuestions().get(holder.i).getId_match(),"NO Data")))
                 {
                     c+=1;
                 }
             }
-            if(c==matchdata.get(position).getQuestions().size()) {
+            if(c==matchdata.get(position-mcqdata.size()).getQuestions().size()) {
                 holder.card_view.setCardBackgroundColor(Color.parseColor("#00D152"));
             }
-            else*/
-                holder.card_view.setCardBackgroundColor(Color.parseColor("#D68C09"));
+            else
+                holder.card_view.setCardBackgroundColor(Color.parseColor("#F83D33"));
         }
         //for cpmplete question
        /* if(position>=(mcqdata.size()+matchdata.size())&&position<(qa.length+mcqdata.size()+matchdata.size()))
@@ -88,8 +88,8 @@ public class answerAdapter extends RecyclerView.Adapter<answerAdapter.ViewHolder
                 }
                 if (position >= mcqdata.size() && position < (matchdata.size() + mcqdata.size())) {
                     Intent myIntent = new Intent(context, show_match_answer.class);
-                    myIntent.putExtra(",match", matchdata.get(position-mcqdata.size()));
-                    Log.d("kkkkkkkk",matchdata.get(position-mcqdata.size()).getId_component());
+                    myIntent.putExtra("match", matchdata.get(position-mcqdata.size()));
+                    //Log.d("kkkkkkkk",String.valueOf(matchdata.get(position-mcqdata.size()).getQuestions().size()));
                     context.startActivity(myIntent);
                 }
             }

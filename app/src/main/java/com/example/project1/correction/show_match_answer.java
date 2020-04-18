@@ -20,7 +20,8 @@ public class show_match_answer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_match_answer);
-        matchdata=getIntent().getParcelableExtra("match");
+        matchdata=new match();
+        matchdata = getIntent().getParcelableExtra("match");
         Log.d("kkkkkkkk",String.valueOf(matchdata.getQuestions().size()));
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         layoutManager = new GridLayoutManager(show_match_answer.this,1);
