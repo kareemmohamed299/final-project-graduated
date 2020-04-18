@@ -4,13 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.AppComponentFactory;
 import android.os.Bundle;
 import android.widget.SearchView;
 
 import com.example.project1.R;
-import com.example.project1.RecyclerAdapter;
-import com.example.project1.connection.student_doctor;
 
 import java.util.ArrayList;
 

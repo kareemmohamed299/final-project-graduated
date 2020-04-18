@@ -24,4 +24,7 @@ public interface Api {
     @POST("api/studentdoctor")
     public Call<List<student_doctor>> getstudent_doctor(@Query("course_code")String course_code,
                                                      @Query("users_id")String users_id);
+    @GET("api/questiondoctor")
+    public Call<List<questiondoctor>> getquestiondoctor(@Query("id")String id,
+                                                        @Query("course_code")String course_code);
 }

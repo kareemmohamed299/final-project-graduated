@@ -15,6 +15,7 @@ import com.example.project1.R;
 
 import com.example.project1.connection.cource;
 import com.example.project1.connection.doctor_course;
+import com.example.project1.connection.questiondoctor;
 import com.example.project1.connection.retrofit;
 import com.example.project1.connection.student_doctor;
 import com.google.android.material.snackbar.Snackbar;
@@ -31,6 +32,7 @@ public class coursesAdapter extends RecyclerView.Adapter<coursesAdapter.ViewHold
     private ArrayList<doctor_course> course1;
     private ArrayList<String> doctor1;
     private ArrayList<student_doctor> st_doctor = new ArrayList<student_doctor>();
+    private ArrayList<questiondoctor>qes_doctor = new ArrayList<>();
     private Context mContext;
 
     public coursesAdapter(ArrayList<doctor_course> course, ArrayList<String> doctor, Context context) {
@@ -97,7 +99,34 @@ public class coursesAdapter extends RecyclerView.Adapter<coursesAdapter.ViewHold
                                     {
                                         st_doctor.add(i, response.body().get(i));
                                     }
-                                    go();
+                                    retrofit.getINSTANCE().getApi().getquestiondoctor(doctor1.get(5),viewHolder.course_code.getText().toString()).
+                                            enqueue(new Callback<List<questiondoctor>>() {
+                                                @Override
+                                                public void onResponse(Call<List<questiondoctor>> call, Response<List<questiondoctor>> response) {
+                                                    if(response.isSuccessful())
+                                                    {
+                                                        for (int i = 0; i < response.body().size(); i++)
+                                                        {
+                                                            qes_doctor.add(i , response.body().get(i));
+                                                        }
+                                                        go();
+                                                    }
+                                                    else
+                                                    {
+                                                        Snackbar.make(v, "55555555555555" ,Snackbar.LENGTH_LONG)
+                                                                .setAction("Action", null).show();
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<List<questiondoctor>> call, Throwable t) {
+                                                    Snackbar.make(v, t.getMessage() ,Snackbar.LENGTH_LONG)
+                                                            .setAction("Action", null).show();
+
+                                                }
+                                            });
+
+
                                 }
                                 else
                                     {
@@ -122,6 +151,7 @@ public class coursesAdapter extends RecyclerView.Adapter<coursesAdapter.ViewHold
     public void go() {
         Intent myIntent = new Intent(mContext, course_info_prof.class);
         myIntent.putParcelableArrayListExtra("student_doctor",st_doctor);
+        myIntent.putParcelableArrayListExtra("question_doctor" , qes_doctor);
         mContext.startActivity(myIntent);
     }
 }
